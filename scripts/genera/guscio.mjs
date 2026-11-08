@@ -192,7 +192,7 @@ export function briciole(lang, nome) {
   return `<nav class="briciole" aria-label="${esc(C.briciole)}">
       <ol>
         <li><a href="${percorso(lang, 'home')}">${esc(C.home)}</a></li>
-        <li><a href="#contenuto" aria-current="page">${esc(nome)}</a></li>
+        <li><span aria-current="page">${esc(nome)}</span></li>
       </ol>
     </nav>`;
 }
