@@ -1,0 +1,236 @@
+{
+  "sito": {
+    "nome": "Studio Medico Esempio",
+    "dominio": "https://demo-studio-medico.pages.dev",
+    "telefono": "0771 000000",
+    "telefono_href": "+390771000000",
+    "telefono_ld": "+39 0771 000000",
+    "email": "info@studio-esempio.example.invalid",
+    "via": "Via Esempio 1",
+    "cap": "04022",
+    "citta": "Fondi",
+    "provincia": "LT",
+    "piva": "00000000000",
+    "cf": "00000000000",
+    "credito_url": "https://giovannipaolofusco.it/servizi",
+    "credito_firma": "Giovanni Paolo Fusco"
+  },
+  "comune": {
+    "it": {
+      "demo": "Sito dimostrativo: attività e dati sono inventati",
+      "salta": "Salta al contenuto",
+      "menu_apri": "Apri il menu",
+      "nav_principale": "Principale",
+      "chiama_aria": "Chiama lo",
+      "cta": "Chiama per prenotare",
+      "altra_lingua": "English",
+      "altra_lingua_breve": "EN",
+      "briciole": "Percorso",
+      "home": "Home",
+      "piede_recapiti": "Recapiti",
+      "piede_orari": "Orari",
+      "piede_info": "Informazioni",
+      "forma": "Studio associato (fittizio).",
+      "fiscale": "P.IVA {piva}, C.F. {cf}. Non iscritto al registro delle imprese.",
+      "privacy": "Privacy",
+      "credito": "Creato da",
+      "emergenza": "<strong>In caso di emergenza</strong> chiamate il 112.",
+      "chiuso": "Chiuso",
+      "lun_ven": "Lun-Ven",
+      "e": "e",
+      "nessun_avviso": "Nessun avviso in questo momento.",
+      "non_tradotto": ""
+    },
+    "en": {
+      "demo": "Demo website: business and data are fictitious",
+      "salta": "Skip to content",
+      "menu_apri": "Open the menu",
+      "nav_principale": "Main",
+      "chiama_aria": "Call",
+      "cta": "Call to book",
+      "altra_lingua": "Italiano",
+      "altra_lingua_breve": "IT",
+      "briciole": "Breadcrumb",
+      "home": "Home",
+      "piede_recapiti": "Contact",
+      "piede_orari": "Hours",
+      "piede_info": "Information",
+      "forma": "Studio associato (fictitious).",
+      "fiscale": "VAT no. {piva}, tax code {cf}. Not listed in the Register of Companies.",
+      "privacy": "Privacy",
+      "credito": "Created by",
+      "emergenza": "<strong>In an emergency</strong> call 112.",
+      "chiuso": "Closed",
+      "lun_ven": "Mon-Fri",
+      "e": "and",
+      "nessun_avviso": "There are no notices at the moment.",
+      "non_tradotto": "Notice available in Italian only."
+    }
+  },
+  "specialita": [
+    {
+      "chiave": "medicina-generale",
+      "icona": "stetoscopio",
+      "nome": { "it": "Medicina generale", "en": "General practice" },
+      "breve": { "it": "Visite, prescrizioni e certificati per i pazienti iscritti, su appuntamento.", "en": "Consultations, prescriptions and certificates for registered patients, by appointment." },
+      "per_chi": { "it": "Per i pazienti iscritti ai medici di medicina generale dello studio.", "en": "For patients registered with the practice's GPs." },
+      "voci": { "it": ["Visite in ambulatorio", "Prescrizioni e ricette", "Certificati"], "en": ["Surgery consultations", "Prescriptions", "Medical certificates"] }
+    },
+    {
+      "chiave": "pediatria",
+      "icona": "bambino",
+      "nome": { "it": "Pediatria", "en": "Paediatrics" },
+      "breve": { "it": "Visite e controlli periodici per bambini e ragazzi fino a 14 anni.", "en": "Consultations and regular check-ups for children and young people up to 14." },
+      "per_chi": { "it": "Per bambini e ragazzi fino a 14 anni, accompagnati da un genitore o da chi ne fa le veci.", "en": "For children and young people up to 14, accompanied by a parent or guardian." },
+      "voci": { "it": ["Visite pediatriche", "Bilanci di salute"], "en": ["Paediatric consultations", "Routine development check-ups"] }
+    },
+    {
+      "chiave": "cardiologia",
+      "icona": "cuore",
+      "nome": { "it": "Cardiologia", "en": "Cardiology" },
+      "breve": { "it": "Visita cardiologica ed elettrocardiogramma, su prenotazione.", "en": "Cardiology consultation and electrocardiogram, by appointment." },
+      "per_chi": { "it": "Su prenotazione telefonica.", "en": "By phone appointment." },
+      "voci": { "it": ["Visita cardiologica", "Elettrocardiogramma"], "en": ["Cardiology consultation", "Electrocardiogram (ECG)"] }
+    }
+  ],
+  "pagine": {
+    "home": {
+      "it": {
+        "title": "Studio Medico Esempio, poliambulatorio a Fondi",
+        "description": "Poliambulatorio a Fondi: medicina generale, pediatria e cardiologia. Prenotazioni per telefono. Sito dimostrativo con dati inventati.",
+        "menu": "Home",
+        "sottotitolo": "Medicina generale, pediatria e cardiologia a Fondi. Si prenota per telefono.",
+        "orari": "Orari settimanali",
+        "avvisi": "Bacheca dello studio",
+        "specialita": "Le specialità",
+        "frase": "Tre specialità, una sola segreteria.",
+        "studio": "Un poliambulatorio di paese, in Via Esempio 1 a Fondi. Medici di base, pediatra e cardiologo lavorano negli stessi locali, e un unico numero di telefono vale per tutte le prenotazioni.",
+        "studio_link": "Conoscere lo studio"
+      },
+      "en": {
+        "title": "Studio Medico Esempio, medical practice in Fondi",
+        "description": "Medical practice in Fondi, Italy: general practice, paediatrics and cardiology. Appointments by phone. Demo website with fictitious data.",
+        "menu": "Home",
+        "sottotitolo": "General practice, paediatrics and cardiology in Fondi. Appointments are booked by phone.",
+        "orari": "Opening hours",
+        "avvisi": "Practice notices",
+        "specialita": "Our specialties",
+        "frase": "Three specialties, one front desk.",
+        "studio": "A local practice at Via Esempio 1 in Fondi. GPs, a paediatrician and a cardiologist work under one roof, and a single phone number covers every booking.",
+        "studio_link": "About the practice"
+      }
+    },
+    "studio": {
+      "it": {
+        "title": "Lo studio | Studio Medico Esempio",
+        "description": "Come è organizzato il poliambulatorio di Fondi: tre specialità nella stessa sede e un'unica segreteria telefonica.",
+        "menu": "Lo studio",
+        "h1": "Lo studio",
+        "lead": "Un poliambulatorio di paese a Fondi, con tre specialità e una sola segreteria.",
+        "blocchi": [
+          { "h2": "Come è organizzato", "p": ["Medici di medicina generale, pediatra e cardiologo ricevono negli stessi locali, in Via Esempio 1 a Fondi.", "La segreteria è unica: lo stesso numero di telefono vale per prenotare con qualunque specialista dello studio."] },
+          { "h2": "Come si prenota", "p": ["Le visite si prenotano solo per telefono, negli orari di apertura dello studio. Il sito non ha un modulo di prenotazione."] },
+          { "h2": "Prima della visita", "p": ["Portate la tessera sanitaria e, se c'è, l'impegnativa del medico. Per le visite pediatriche serve la presenza di un genitore o di chi ne fa le veci."] }
+        ],
+        "riquadro_h2": "Uno studio che non esiste",
+        "riquadro": "Studio Medico Esempio è un sito dimostrativo. Nome, indirizzo, numeri di telefono e dati fiscali sono inventati: non chiamate e non presentatevi all'indirizzo indicato."
+      },
+      "en": {
+        "title": "The practice | Studio Medico Esempio",
+        "description": "How the Fondi medical practice works: three specialties under one roof and a single booking line.",
+        "menu": "The practice",
+        "h1": "The practice",
+        "lead": "A local medical practice in Fondi, with three specialties and one front desk.",
+        "blocchi": [
+          { "h2": "How it works", "p": ["GPs, a paediatrician and a cardiologist see patients in the same rooms, at Via Esempio 1 in Fondi.", "There is one front desk: the same phone number books an appointment with any specialist at the practice."] },
+          { "h2": "How to book", "p": ["Appointments are booked by phone only, during opening hours. This website has no booking form."] },
+          { "h2": "Before your appointment", "p": ["Bring your health card and, if you have one, your doctor's referral. Children seeing the paediatrician must be accompanied by a parent or guardian."] }
+        ],
+        "riquadro_h2": "A practice that does not exist",
+        "riquadro": "Studio Medico Esempio is a demo website. The name, address, phone numbers and tax details are fictitious: please do not call or visit the address shown."
+      }
+    },
+    "servizi": {
+      "it": {
+        "title": "Servizi e specialità | Studio Medico Esempio",
+        "description": "Medicina generale, pediatria e cardiologia a Fondi: per chi sono e che cosa comprendono. Prenotazioni per telefono.",
+        "menu": "Servizi e specialità",
+        "h1": "Servizi e specialità",
+        "lead": "Tre specialità nella stessa sede. Per ognuna si prenota allo stesso numero.",
+        "comprende": "Comprende"
+      },
+      "en": {
+        "title": "Services and specialties | Studio Medico Esempio",
+        "description": "General practice, paediatrics and cardiology in Fondi: who they are for and what they include. Appointments by phone.",
+        "menu": "Services",
+        "h1": "Services and specialties",
+        "lead": "Three specialties under one roof. The same phone number books all of them.",
+        "comprende": "Includes"
+      }
+    },
+    "orari": {
+      "it": {
+        "title": "Orari e prenotazioni | Studio Medico Esempio",
+        "description": "Orari del poliambulatorio di Fondi e come prenotare una visita per telefono.",
+        "menu": "Orari e prenotazioni",
+        "h1": "Orari e prenotazioni",
+        "lead": "Lo studio è aperto dal lunedì al venerdì. Al telefono rispondiamo negli stessi orari.",
+        "orari_h2": "Orari di apertura",
+        "come_h2": "Come prenotare",
+        "come": ["Chiamate lo 0771 000000 negli orari di apertura.", "Dite per quale specialità chiamate.", "Tenete a portata di mano la tessera sanitaria."],
+        "disdire_h2": "Disdire un appuntamento",
+        "disdire": "Se non potete venire, avvisate per telefono il prima possibile: il posto passa a un altro paziente.",
+        "avvisi_h2": "Avvisi dello studio"
+      },
+      "en": {
+        "title": "Hours and booking | Studio Medico Esempio",
+        "description": "Opening hours of the Fondi medical practice and how to book an appointment by phone.",
+        "menu": "Hours and booking",
+        "h1": "Hours and booking",
+        "lead": "The practice is open Monday to Friday. The phone is answered during the same hours.",
+        "orari_h2": "Opening hours",
+        "come_h2": "How to book",
+        "come": ["Call 0771 000000 during opening hours.", "Tell us which specialty you need.", "Have your health card to hand."],
+        "disdire_h2": "Cancelling an appointment",
+        "disdire": "If you cannot come, please let us know by phone as soon as possible so the slot can go to another patient.",
+        "avvisi_h2": "Practice notices"
+      }
+    },
+    "contatti": {
+      "it": {
+        "title": "Contatti | Studio Medico Esempio",
+        "description": "Telefono, email e indirizzo del poliambulatorio di Fondi. Le visite si prenotano per telefono.",
+        "menu": "Contatti",
+        "h1": "Contatti",
+        "lead": "Telefono, email e indirizzo dello studio. Per prenotare serve il telefono.",
+        "telefono": "Telefono",
+        "telefono_nota": "Prenotazioni negli orari di apertura",
+        "email": "Email",
+        "email_nota": "Per informazioni, non per prenotare",
+        "indirizzo": "Indirizzo",
+        "orari": "Orari"
+      },
+      "en": {
+        "title": "Contact | Studio Medico Esempio",
+        "description": "Phone, email and address of the medical practice in Fondi. Appointments are booked by phone.",
+        "menu": "Contact",
+        "h1": "Contact",
+        "lead": "Phone, email and address of the practice. Bookings are by phone only.",
+        "telefono": "Phone",
+        "telefono_nota": "Bookings during opening hours",
+        "email": "Email",
+        "email_nota": "For information, not for bookings",
+        "indirizzo": "Address",
+        "orari": "Hours"
+      }
+    },
+    "privacy": {
+      "it": { "title": "Privacy | Studio Medico Esempio", "description": "Informativa sul trattamento dei dati personali del sito dimostrativo Studio Medico Esempio.", "menu": "Privacy", "h1": "Privacy" },
+      "en": { "title": "Privacy | Studio Medico Esempio", "description": "Privacy notice for the Studio Medico Esempio demo website.", "menu": "Privacy", "h1": "Privacy" }
+    },
+    "errore": {
+      "it": { "title": "Pagina inesistente | Studio Medico Esempio", "h1": "Questa pagina non esiste", "p": "L'indirizzo potrebbe essere cambiato o contenere un errore. Potete tornare alla home o chiamare lo studio.", "home": "Torna alla home" },
+      "en": { "h1": "This page does not exist", "p": "The address may have changed or contain a typo. You can go back to the home page or call the practice.", "home": "Back to the home page" }
+    }
+  }
+}
