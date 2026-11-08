@@ -1,5 +1,5 @@
 import { TESTI, ORARI, AVVISI } from './dati.mjs';
-import { S, esc, ico, icoDisegno, percorso, turni, NUMERO, orariBrevi, briciole } from './guscio.mjs';
+import { S, esc, ico, icoDisegno, percorso, NUMERO, orariBrevi, briciole } from './guscio.mjs';
 
 const C = (lang) => TESTI.comune[lang];
 const P = (chiave, lang) => TESTI.pagine[chiave][lang];
@@ -44,14 +44,16 @@ function giorniCaselle(lang) {
 
 function tabellaOrari(lang) {
   const righe = ORARI.giorni.map((g) => {
-    const valore = g.turni.length ? esc(turni(g, lang)) : esc(C(lang).chiuso);
+    const valore = g.turni.length
+      ? g.turni.map((t) => `<span class="turno">${t.apre.replace(/^0/, '')}-${t.chiude.replace(/^0/, '')}</span>`).join(` ${esc(C(lang).e)} `)
+      : esc(C(lang).chiuso);
     return `        <tr data-giorno="${NUMERO[g.giorno]}"><th scope="row">${esc(g.nome[lang])}</th><td>${valore}</td></tr>`;
   });
-  return `<table class="tabella-orari">
+  return `<div class="tabella-scorre"><table class="tabella-orari">
       <tbody>
 ${righe.join('\n')}
       </tbody>
-    </table>`;
+    </table></div>`;
 }
 
 export function home(lang) {
@@ -104,7 +106,7 @@ export function studio(lang) {
 ${b.p.map((x) => `      <p>${esc(x)}</p>`).join('\n')}
     </section>`).join('\n');
   return `${testaPagina(lang, p)}
-  <div class="corpo">
+  <div class="corpo corpo--servizi">
 ${blocchi}
     <div class="blocco">${cta(lang)}</div>
     <aside class="riquadro" aria-labelledby="t-finto">
@@ -116,16 +118,21 @@ ${blocchi}
 
 export function servizi(lang) {
   const p = P('servizi', lang);
-  const blocchi = TESTI.specialita.map((s) => `    <section class="blocco" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
-      <h2 id="t-${s.chiave}">${esc(s.nome[lang])}</h2>
-      <p>${esc(s.per_chi[lang])}</p>
-      <h3>${esc(p.comprende)}</h3>
-      <ul class="puntato">
-${s.voci[lang].map((v) => `        <li>${esc(v)}</li>`).join('\n')}
-      </ul>
+  const blocchi = TESTI.specialita.map((s, i) => `    <section class="blocco specialita-riga scheda" style="--n:${i}" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
+      <div class="specialita-riga__testa">
+        ${icoDisegno(s.icona)}
+        <h2 id="t-${s.chiave}">${esc(s.nome[lang])}</h2>
+      </div>
+      <div>
+        <p>${esc(s.per_chi[lang])}</p>
+        <h3>${esc(p.comprende)}</h3>
+        <ul class="puntato">
+${s.voci[lang].map((v) => `          <li>${esc(v)}</li>`).join('\n')}
+        </ul>
+      </div>
     </section>`).join('\n');
   return `${testaPagina(lang, p)}
-  <div class="corpo">
+  <div class="corpo corpo--servizi">
 ${blocchi}
     <div class="blocco">${cta(lang)}
       <p class="emergenza">${C(lang).emergenza}</p>
@@ -254,10 +261,28 @@ const PRIVACY = {
     </div>`,
 };
 
+const ID_PRIVACY = ['titolare', 'dati', 'finalita', 'destinatari', 'trasferimenti', 'conservazione', 'cookie', 'conferimento', 'diritti', 'redazione'];
+
 export function privacy(lang) {
   const p = P('privacy', lang);
+  const voci = [];
+  let i = 0;
+  const testo = PRIVACY[lang].replace(/<h2>(.*?)<\/h2>/g, (m, titolo) => {
+    const id = ID_PRIVACY[i++];
+    voci.push(`          <li><a href="#${id}">${titolo}</a></li>`);
+    return `<h2 id="${id}">${titolo}</h2>`;
+  });
+  const indice = `<nav class="indice-pagina" aria-labelledby="titolo-indice">
+        <h2 id="titolo-indice">${lang === 'it' ? 'Indice' : 'Contents'}</h2>
+        <details>
+          <summary>${lang === 'it' ? 'Indice' : 'Contents'}</summary>
+          <ol>
+${voci.join('\n')}
+          </ol>
+        </details>
+      </nav>`;
   return `${testaPagina(lang, p)}
   <div class="corpo">
-    ${PRIVACY[lang]}
+    ${testo.replace('<h2 id="titolare">', `${indice}\n\n      <h2 id="titolare">`)}
   </div>`;
 }

@@ -56,6 +56,10 @@ scrivi('404.html', `<!doctype html>
     <p><a href="${percorso('en', 'home')}">${esc(E.en.home)}</a></p>
   </div>
 </main>
+<footer class="fondo-pagina fondo-pagina--breve">
+  <p><a href="${percorso('it', 'privacy')}">${esc(TESTI.comune.it.privacy)}</a></p>
+  <p>${esc(TESTI.comune.it.credito)} <a href="${S.credito_url}" rel="noopener">${esc(S.credito_firma)}</a></p>
+</footer>
 </body>
 </html>
 `);
@@ -67,7 +71,7 @@ try {
 if (!lastmod) lastmod = new Date().toISOString().slice(0, 10);
 
 const voci = [];
-for (const lang of ['it', 'en']) {
+for (const lang of S.indicizzabile ? ['it', 'en'] : []) {
   for (const chiave of PAGINE) {
     voci.push(`  <url>
     <loc>${assoluto(lang, chiave)}</loc>
@@ -84,4 +88,4 @@ ${voci.join('\n')}
 </urlset>
 `);
 
-console.log(`genera: ${n} pagine, 404.html e sitemap.xml (lastmod ${lastmod}) da contenuti/ verso ${DOM}`);
+console.log(`genera: ${n} pagine, 404.html e sitemap.xml (${voci.length} URL${S.indicizzabile ? `, lastmod ${lastmod}` : ': sito non indicizzabile'}) da contenuti/ verso ${DOM}`);

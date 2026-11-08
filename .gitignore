@@ -1,0 +1,30 @@
+# Sistema e dipendenze (CLAUDE.md §2.2)
+.env
+.env.*
+*.log
+node_modules/
+dist/
+
+# File di governance, mai nel repository (CLAUDE.md §2.3)
+CLAUDE.md
+AGENTS.md
+overview.md
+[0-9][0-9]_*.md
+[0-9][0-9]bis_*.md
+MOD_*.md
+UTIL_*.md
+PROMPT_*.md
+PROMEMORIA_*.md
+RIFERIMENTI_*.md
+SCELTE_FIRMATE.md
+GUIDA_*.md
+UTIL_*.py
+sistema-statico/
+sistema-fullstack/
+.claude/
+.codex/
+_bozze/
+DEBITO.md
+AGGIORNA.md
+_asset-ia/
+REGISTRO_ASSET_IA.md

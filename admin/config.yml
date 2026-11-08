@@ -1,0 +1,88 @@
+backend:
+  name: github
+  repo: giovannipaolofusco/demo-studio-medico
+  branch: main
+  base_url: https://pannello-auth-demo.gpf-edge.workers.dev
+  commit_messages:
+    update: 'Aggiorna {{collection}} dal pannello - {{author-login}}'
+
+logo_url: /assets/favicon/icon.svg
+site_url: https://demo-studio-medico.pages.dev
+locale: it
+
+editor:
+  preview: false
+
+media_folder: "assets/img/pannello"
+public_folder: "/assets/img/pannello"
+
+collections:
+  - name: orari
+    label: "Orari"
+    delete: false
+    files:
+      - name: orari
+        label: "Orari di apertura"
+        file: "contenuti/orari.json"
+        format: json
+        fields:
+          - name: giorni
+            label: "Giorni della settimana"
+            widget: list
+            allow_add: false
+            allow_remove: false
+            allow_reorder: false
+            summary: "{{fields.giorno}}"
+            fields:
+              - name: giorno
+                label: "Giorno"
+                widget: select
+                options:
+                  - {label: "Lunedì", value: "Monday"}
+                  - {label: "Martedì", value: "Tuesday"}
+                  - {label: "Mercoledì", value: "Wednesday"}
+                  - {label: "Giovedì", value: "Thursday"}
+                  - {label: "Venerdì", value: "Friday"}
+                  - {label: "Sabato", value: "Saturday"}
+                  - {label: "Domenica", value: "Sunday"}
+                hint: "Non cambiarlo: indica a quale giorno si riferiscono le fasce qui sotto."
+              - name: turni
+                label: "Fasce orarie"
+                label_singular: "Fascia"
+                widget: list
+                required: false
+                summary: "{{fields.apre}}-{{fields.chiude}}"
+                hint: "Nessuna fascia = studio chiuso quel giorno."
+                fields:
+                  - {name: apre, label: "Apre", widget: string, pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 09:00"]}
+                  - {name: chiude, label: "Chiude", widget: string, pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 13:00"]}
+
+  - name: avvisi
+    label: "Avvisi dello studio"
+    delete: false
+    files:
+      - name: avvisi
+        label: "Avvisi (chiusure, vaccinazioni)"
+        file: "contenuti/avvisi.json"
+        format: json
+        fields:
+          - name: voci
+            label: "Avvisi"
+            label_singular: "Avviso"
+            widget: list
+            required: false
+            summary: "{{fields.titolo.it}}"
+            fields:
+              - {name: visibile, label: "Mostra sul sito", widget: boolean, default: true}
+              - name: titolo
+                label: "Titolo"
+                widget: object
+                fields:
+                  - {name: it, label: "Italiano", widget: string}
+                  - {name: en, label: "English", widget: string, required: false, hint: "Se resta vuoto, nella pagina inglese l'avviso compare in italiano con una nota."}
+              - name: testo
+                label: "Testo"
+                widget: object
+                fields:
+                  - {name: it, label: "Italiano", widget: text}
+                  - {name: en, label: "English", widget: text, required: false}

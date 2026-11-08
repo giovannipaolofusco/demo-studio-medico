@@ -1,0 +1,77 @@
+{
+  "giorni": [
+    {
+      "giorno": "Monday",
+      "turni": [
+        {
+          "apre": "09:00",
+          "chiude": "13:00"
+        },
+        {
+          "apre": "15:00",
+          "chiude": "19:00"
+        }
+      ]
+    },
+    {
+      "giorno": "Tuesday",
+      "turni": [
+        {
+          "apre": "09:00",
+          "chiude": "13:00"
+        },
+        {
+          "apre": "15:00",
+          "chiude": "19:00"
+        }
+      ]
+    },
+    {
+      "giorno": "Wednesday",
+      "turni": [
+        {
+          "apre": "09:00",
+          "chiude": "13:00"
+        },
+        {
+          "apre": "15:00",
+          "chiude": "19:00"
+        }
+      ]
+    },
+    {
+      "giorno": "Thursday",
+      "turni": [
+        {
+          "apre": "09:00",
+          "chiude": "13:00"
+        },
+        {
+          "apre": "15:00",
+          "chiude": "19:00"
+        }
+      ]
+    },
+    {
+      "giorno": "Friday",
+      "turni": [
+        {
+          "apre": "09:00",
+          "chiude": "13:00"
+        },
+        {
+          "apre": "15:00",
+          "chiude": "19:00"
+        }
+      ]
+    },
+    {
+      "giorno": "Saturday",
+      "turni": []
+    },
+    {
+      "giorno": "Sunday",
+      "turni": []
+    }
+  ]
+}
