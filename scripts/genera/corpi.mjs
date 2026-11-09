@@ -231,7 +231,7 @@ const PRIVACY = {
       <p>Se l'informativa cambia, la versione aggiornata viene pubblicata su questa pagina con la nuova data di aggiornamento. Prima di usare i dati di navigazione per una finalità diversa da quelle descritte qui, il titolare indicherà la nuova finalità, con ogni altra informazione pertinente, in questa pagina e con un avviso sul sito.</p>
 
       <h2>14. Area di redazione</h2>
-      <p>L'area <code>/admin/</code> serve solo al titolare per aggiornare orari e avvisi, con accesso tramite account GitHub. Non è destinata ai visitatori e non raccoglie dati dei visitatori.</p>
+      <p>L'area <code>/admin/</code> serve solo al titolare per aggiornare orari e avvisi, con accesso tramite account GitHub. Non è destinata ai visitatori e non raccoglie dati dei visitatori. Il pannello salva nel browser di chi lo usa (<code>localStorage</code>) alcune preferenze di visualizzazione e la sessione di accesso: restano su quel dispositivo e servono solo al suo funzionamento.</p>
 
       <h2>15. Contatti</h2>
       <p>Per qualunque domanda su questa informativa o sui vostri dati: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
@@ -286,7 +286,7 @@ const PRIVACY = {
       <p>If this notice changes, the updated version is published on this page with a new date. Before using browsing data for a purpose other than those described here, the controller will state the new purpose, together with any other relevant information, on this page and through a notice on the website.</p>
 
       <h2>14. Editing area</h2>
-      <p>The <code>/admin/</code> area is used only by the controller to update opening hours and notices, with access through a GitHub account. It is not intended for visitors and collects no visitor data.</p>
+      <p>The <code>/admin/</code> area is used only by the controller to update opening hours and notices, with access through a GitHub account. It is not intended for visitors and collects no visitor data. The panel stores some display preferences and the login session in the browser of the person using it (<code>localStorage</code>): they stay on that device and are used only for the panel to work.</p>
 
       <h2>15. Contact</h2>
       <p>For any question about this notice or your data: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
