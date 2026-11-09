@@ -1,6 +1,14 @@
 (function () {
   var inglese = document.documentElement.lang === 'en';
 
+  var salto = /[?&]jump=(\d+)/.exec(location.search);
+  Promise.resolve(document.fonts && document.fonts.ready).then(function () {
+    setTimeout(function () {
+      if (salto) { window.scrollTo(0, Number(salto[1])); }
+      window.__ready = true;
+    }, document.documentElement.classList.contains('apre') ? 1100 : 0);
+  });
+
   var bottone = document.querySelector('.testata__menu');
   var voci = document.getElementById('voci');
   if (bottone && voci) {
