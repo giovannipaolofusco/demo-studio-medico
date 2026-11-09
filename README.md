@@ -41,7 +41,7 @@ npm run build
 npx serve dist
 ```
 
-Serve Node 22.
+Serve Node 22. Le pagine HTML non sono nel repository: le genera `npm run build` dai file di `contenuti/`, così quello che si legge qui è sempre quello che va online.
 
 ## Licenze di terze parti
 
@@ -63,7 +63,7 @@ Demo website for a fictional medical practice, *Studio Medico Esempio* in Fondi,
 **What it shows**
 
 - Six pages in Italian and English. Opening hours and notices (closures, vaccinations) stored as JSON in `contenuti/`, edited through [Decap CMS](https://decapcms.org) in `admin/` with GitHub login via a Cloudflare OAuth Worker.
-- Node scripts in `scripts/` generate the HTML; HTML, CSS and JS are minified and images optimized with `sharp`.
+- Node scripts in `scripts/` generate the HTML at build time (the pages are not stored in the repository); HTML, CSS and JS are minified and images optimized with `sharp`.
 - Hosted on Cloudflare Pages with automatic deploys on every save. Security headers in `_headers`.
 
 **Healthcare choices:** no forms, so no health data is collected (bookings go through the phone); no tracking, with fonts and icons self-hosted; every page is `noindex` (meta and `X-Robots-Tag`) and carries a banner stating it is a demo.
