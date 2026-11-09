@@ -5,12 +5,21 @@
   Promise.resolve(document.fonts && document.fonts.ready).then(function () {
     setTimeout(function () {
       if (!salto) { window.__ready = true; return; }
-      window.scrollTo(0, Number(salto[1]));
-      setTimeout(function () {
-        window.scrollTo(0, Number(salto[1]));
-        window.__ready = true;
-      }, 600);
-    }, document.documentElement.classList.contains('apre') ? 1100 : 0);
+      var y = Number(salto[1]);
+      var barra = document.querySelector('.testata');
+      if (barra && y > 0) {
+        barra.style.transition = 'none';
+        barra.classList.add('testata--compatta');
+      }
+      window.scrollTo(0, y);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          window.scrollTo(0, y);
+          if (barra) { barra.style.transition = ''; }
+          window.__ready = true;
+        });
+      });
+    }, document.documentElement.classList.contains('apre') ? 1000 : 0);
   });
 
   var bottone = document.querySelector('.testata__menu');
