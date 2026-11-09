@@ -3,7 +3,10 @@ import { TESTI, ORARI } from './dati.mjs';
 export const S = TESTI.sito;
 export const tel = (lang) => (lang === 'en' ? S.telefono_ld : S.telefono);
 export const DOM = S.dominio;
+// Una sola immagine per tutte le pagine e le lingue (CLAUDE.md §7.1): il sottotitolo non dipende dalla lingua.
 const OG = `${DOM}/assets/img/og-studio-medico-esempio.jpg`;
+// Chi riceve il link di una pagina interna in chat deve leggere che lo studio e' inventato.
+const condivisa = (lang, d) => (/dimostrativ|demo/i.test(d) ? d : `${d} ${TESTI.comune[lang].demo}.`);
 
 export const esc = (v) => String(v ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -56,7 +59,8 @@ export function orariBrevi(lang) {
   return gruppi.map((x) => {
     const da = x.inizio.nome[lang].slice(0, 3);
     const nomi = x.inizio === x.fine ? da : `${da}–${x.fine.nome[lang].slice(0, 3)}`;
-    return `${esc(nomi)} ${x.inizio.turni.length ? esc(turni(x.inizio, lang)) : C.chiuso.toLowerCase()}`;
+    const fasce = x.inizio.turni.map((t) => `<span class="turno">${ora(t.apre)}–${ora(t.chiude)}</span>`).join(` ${esc(C.e)} `);
+    return `${esc(nomi)} ${x.inizio.turni.length ? fasce : C.chiuso.toLowerCase()}`;
   });
 }
 
@@ -108,7 +112,7 @@ function testa(lang, chiave, title, description, ld) {
 <meta property="og:site_name" content="${esc(S.nome)}">
 <meta property="og:locale" content="${lang === 'it' ? 'it_IT' : 'en_GB'}">
 <meta property="og:title" content="${esc(title)}">
-<meta property="og:description" content="${esc(description)}">
+<meta property="og:description" content="${esc(condivisa(lang, description))}">
 <meta property="og:url" content="${assoluto(lang, chiave)}">
 <meta property="og:image" content="${OG}">
 <meta property="og:image:secure_url" content="${OG}">
@@ -118,7 +122,7 @@ function testa(lang, chiave, title, description, ld) {
 <meta property="og:image:alt" content="${esc(alt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
-<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:description" content="${esc(condivisa(lang, description))}">
 <meta name="twitter:image" content="${OG}">
 <meta name="twitter:image:alt" content="${esc(alt)}">
 <meta name="theme-color" content="#5f2852">

@@ -51,11 +51,12 @@ ${testata('it', null)}
   <h1>${esc(E.it.h1)}</h1>
   <p>${esc(E.it.p)}</p>
   <p><a class="pulsante" href="/">${esc(E.it.home)}</a></p>
-  <p><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a> · <a href="mailto:${S.email}">${esc(S.email)}</a></p>
+  <p><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a><br><a href="mailto:${S.email}">${esc(S.email)}</a></p>
   <div class="errore__altra" lang="en">
     <h2>${esc(E.en.h1)}</h2>
     <p>${esc(E.en.p)}</p>
     <p><a href="${percorso('en', 'home')}">${esc(E.en.home)}</a></p>
+    <p><a href="tel:${S.telefono_href}">${esc(S.telefono_ld)}</a></p>
   </div>
 </main>
 ${piede('it')}

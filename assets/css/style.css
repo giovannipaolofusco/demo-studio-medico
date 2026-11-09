@@ -179,12 +179,13 @@ a { color: inherit; }
 .tabella-orari .giorni__etichetta { position: static; margin-left: .5rem; padding: .1rem .45rem; border-radius: .25rem; background: var(--accento); color: #fbf6fa; }
 
 .recapiti { display: grid; gap: 1rem; margin: 0; }
-.recapito { display: grid; grid-template-columns: 2.75rem 1fr; gap: .25rem 1rem; align-items: start; padding: 1.25rem; background: var(--carta); border: 1px solid var(--linea); border-radius: .5rem; }
+.recapito { display: grid; grid-template-columns: 2.75rem 1fr; gap: .25rem 1rem; align-items: start; align-content: start; padding: 1.25rem; background: var(--carta); border: 1px solid var(--linea); border-radius: .5rem; }
 .recapito .ico { width: 1.5rem; height: 1.5rem; color: var(--accento); grid-row: span 2; margin: .2rem auto 0; }
 .recapito dt { font-weight: 600; }
 .recapito dd { margin: 0; color: var(--tenue); }
 .recapito dd a { color: var(--accento); font-weight: 600; }
 
+* + .riquadro, .riquadro + *, .riquadro + .indice-pagina { margin-top: 2rem; }
 .riquadro { padding: 1.25rem 1.5rem; background: var(--accento-chiaro); border: 1px solid #e2d3df; border-radius: .5rem; }
 .riquadro h2 { font-size: 1.25rem; }
 .riquadro p:last-child { margin-bottom: 0; }

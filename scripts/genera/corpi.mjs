@@ -306,8 +306,7 @@ export function privacy(lang) {
     voci.push(`          <li><a href="#${id}">${titolo}</a></li>`);
     return `<h2 id="${id}">${titolo}</h2>`;
   });
-  const indice = `<nav class="indice-pagina" aria-labelledby="titolo-indice">
-        <h2 id="titolo-indice">${lang === 'it' ? 'Indice' : 'Contents'}</h2>
+  const indice = `<nav class="indice-pagina" aria-label="${lang === 'it' ? 'Indice della pagina' : 'Page contents'}">
         <details>
           <summary>${lang === 'it' ? 'Indice' : 'Contents'}</summary>
           <ol>
