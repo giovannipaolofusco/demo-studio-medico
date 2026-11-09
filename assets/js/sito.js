@@ -4,8 +4,14 @@
   var salto = /[?&]jump=(\d+)/.exec(location.search);
   Promise.resolve(document.fonts && document.fonts.ready).then(function () {
     setTimeout(function () {
-      if (salto) { window.scrollTo(0, Number(salto[1])); }
-      window.__ready = true;
+      if (!salto) { window.__ready = true; return; }
+      window.scrollTo(0, Number(salto[1]));
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          window.scrollTo(0, Number(salto[1]));
+          window.__ready = true;
+        });
+      });
     }, document.documentElement.classList.contains('apre') ? 1100 : 0);
   });
 
@@ -27,7 +33,9 @@
     var etichetta = document.createElement('span');
     etichetta.className = 'giorni__etichetta';
     etichetta.textContent = inglese ? 'Today' : 'Oggi';
-    (giorno.querySelector('th') || giorno).appendChild(etichetta);
+    var cella = giorno.querySelector('th') || giorno;
+    cella.appendChild(document.createTextNode(' '));
+    cella.appendChild(etichetta);
   });
 
   if (!('IntersectionObserver' in window)) { return; }
