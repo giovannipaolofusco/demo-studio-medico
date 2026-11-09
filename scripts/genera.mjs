@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { execSync } from 'node:child_process';
 import { TESTI } from './genera/dati.mjs';
-import { S, DOM, esc, pagina, file, assoluto, jsonLdClinica, jsonLdBriciole, percorso } from './genera/guscio.mjs';
+import { S, DOM, esc, pagina, file, assoluto, jsonLdClinica, jsonLdBriciole, percorso, testata, piede } from './genera/guscio.mjs';
 import * as corpi from './genera/corpi.mjs';
 
 const DEST = process.argv[2] || '.';
@@ -41,11 +41,13 @@ scrivi('404.html', `<!doctype html>
 <meta name="theme-color" content="#5f2852">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon/icon.svg">
+<link rel="manifest" href="/site.webmanifest">
+<script src="/assets/js/apertura.js"></script>
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-<p class="nota-demo" role="note">${esc(TESTI.comune.it.demo)}</p>
-<main id="contenuto" class="errore">
+${testata('it', null)}
+<main id="contenuto" class="errore" tabindex="-1">
   <h1>${esc(E.it.h1)}</h1>
   <p>${esc(E.it.p)}</p>
   <p><a class="pulsante" href="/">${esc(E.it.home)}</a></p>
@@ -56,10 +58,8 @@ scrivi('404.html', `<!doctype html>
     <p><a href="${percorso('en', 'home')}">${esc(E.en.home)}</a></p>
   </div>
 </main>
-<footer class="fondo-pagina fondo-pagina--breve">
-  <p><a href="${percorso('it', 'privacy')}">${esc(TESTI.comune.it.privacy)}</a></p>
-  <p>${esc(TESTI.comune.it.credito)} <a href="${S.credito_url}" rel="noopener">${esc(S.credito_firma)}</a></p>
-</footer>
+${piede('it')}
+<script src="/assets/js/sito.js" defer></script>
 </body>
 </html>
 `);

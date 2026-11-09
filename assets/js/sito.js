@@ -22,6 +22,12 @@
       bottone.setAttribute('aria-label', aperto ? (inglese ? 'Open the menu' : 'Apri il menu') : (inglese ? 'Close the menu' : 'Chiudi il menu'));
       if (aperto) { voci.setAttribute('data-chiuso', ''); } else { voci.removeAttribute('data-chiuso'); }
     });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && bottone.getAttribute('aria-expanded') === 'true') {
+        bottone.click();
+        bottone.focus();
+      }
+    });
   }
 
   var sigla = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Rome', weekday: 'short' }).format(new Date());

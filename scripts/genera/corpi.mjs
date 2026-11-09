@@ -58,7 +58,7 @@ ${righe.join('\n')}
 
 export function home(lang) {
   const p = P('home', lang);
-  const schede = TESTI.specialita.map((s, i) => `      <li class="scheda" style="--n:${i}">
+  const schede = TESTI.specialita.map((s, i) => `      <li class="scheda${i ? ` scheda--n${i}` : ''}">
         ${icoDisegno(s.icona)}
         <h3>${esc(s.nome[lang])}</h3>
         <p>${esc(s.breve[lang])}</p>
@@ -118,7 +118,7 @@ ${blocchi}
 
 export function servizi(lang) {
   const p = P('servizi', lang);
-  const blocchi = TESTI.specialita.map((s, i) => `    <section class="blocco specialita-riga scheda" style="--n:${i}" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
+  const blocchi = TESTI.specialita.map((s, i) => `    <section class="blocco specialita-riga scheda${i ? ` scheda--n${i}` : ''}" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
       <div class="specialita-riga__testa">
         ${icoDisegno(s.icona)}
         <h2 id="t-${s.chiave}">${esc(s.nome[lang])}</h2>

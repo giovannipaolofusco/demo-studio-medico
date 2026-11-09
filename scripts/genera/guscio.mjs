@@ -135,7 +135,7 @@ function testa(lang, chiave, title, description, ld) {
 ${ld}`;
 }
 
-function testata(lang, chiave) {
+export function testata(lang, chiave) {
   const C = TESTI.comune[lang];
   const voci = MENU.map((k) => {
     const nome = esc(TESTI.pagine[k][lang].menu);
@@ -144,7 +144,7 @@ function testata(lang, chiave) {
       : `    <li><a href="${percorso(lang, k)}">${nome}</a></li>`;
   });
   const altra = lang === 'it' ? 'en' : 'it';
-  voci.push(`    <li><a href="${percorso(altra, chiave)}" hreflang="${altra}" lang="${altra}">${esc(C.altra_lingua_breve)}<span class="testata__lingua"> ${esc(C.altra_lingua)}</span></a></li>`);
+  voci.push(`    <li><a href="${percorso(altra, chiave || 'home')}" hreflang="${altra}" lang="${altra}">${esc(C.altra_lingua_breve)}<span class="testata__lingua"> ${esc(C.altra_lingua)}</span></a></li>`);
   return `<a class="vai" href="#contenuto">${esc(C.salta)}</a>
 <p class="nota-demo" role="note">${esc(C.demo)}</p>
 <div class="sentinella" aria-hidden="true"></div>
@@ -163,7 +163,7 @@ ${voci.join('\n')}
 </nav>`;
 }
 
-function piede(lang) {
+export function piede(lang) {
   const C = TESTI.comune[lang];
   const fiscale = C.fiscale.replace('{piva}', S.piva).replace('{cf}', S.cf);
   return `<footer class="fondo-pagina" id="piede">
@@ -207,7 +207,7 @@ ${testa(lang, chiave, title, description, ld)}
 <body>
 ${testata(lang, chiave)}
 
-<main id="contenuto">
+<main id="contenuto" tabindex="-1">
 ${corpo}
 </main>
 

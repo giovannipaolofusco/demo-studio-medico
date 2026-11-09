@@ -44,12 +44,12 @@ a { color: inherit; }
 .testata--compatta { padding-top: max(.5rem, env(safe-area-inset-top)); padding-bottom: .5rem; box-shadow: 0 6px 20px -14px rgba(29, 33, 38, .35); }
 .testata__marchio { font-family: var(--font-titoli); font-weight: 600; font-size: 1.1875rem; text-decoration: none; }
 .testata__voci { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; width: 100%; order: 3; }
-.testata__voci a { display: block; padding: .6rem 0; text-decoration: none; }
+.testata__voci a { display: block; padding: .6rem 0; text-decoration: none; white-space: nowrap; }
 .testata__voci a[aria-current="page"] { color: var(--accento); font-weight: 600; }
 .js .testata__voci[data-chiuso] { display: none; }
 .testata__azioni { display: flex; align-items: center; gap: .5rem; }
 .testata__tel { display: inline-flex; align-items: center; gap: .4rem; min-height: 2.75rem; padding: 0 .25rem; font-weight: 600; color: var(--accento); text-decoration: none; }
-.testata__tel span { display: none; }
+.testata__tel span { display: none; white-space: nowrap; }
 .testata__menu { display: none; min-width: 2.75rem; min-height: 2.75rem; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--linea); border-radius: .5rem; color: inherit; cursor: pointer; }
 .js .testata__menu { display: inline-flex; }
 .testata__menu .ico--x { display: none; }
@@ -72,13 +72,13 @@ a { color: inherit; }
 .fascia-orari { padding: clamp(2.25rem, 5vw, 3.25rem) var(--lato); background: var(--accento-chiaro); border-top: 1px solid #e2d3df; border-bottom: 1px solid #e2d3df; }
 .fascia-orari h2 { font-size: 1.5rem; }
 .giorni { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .75rem; }
-.giorni li { position: relative; background: var(--carta); border: 1px solid transparent; border-radius: .5rem; padding: .8rem 1rem; }
+.giorni li { display: flex; flex-direction: column; align-items: flex-start; background: var(--carta); border: 1px solid transparent; border-radius: .5rem; padding: .8rem 1rem; }
 .giorni strong { display: block; font-weight: 600; }
 .giorni span { display: block; color: var(--tenue); font-size: .9375rem; }
 .giorni .giorni__chiuso { background: transparent; border: 1px dashed #c9b3c3; }
 .giorni .e-oggi { background: var(--accento); border-color: var(--accento); color: #fbf6fa; box-shadow: var(--ombra); }
 .giorni .e-oggi span { color: #eadde6; }
-.giorni__etichetta { position: absolute; top: .8rem; right: .9rem; font-size: .75rem; font-style: normal; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.giorni__etichetta { order: -1; margin-bottom: .3rem; font-size: .75rem; font-style: normal; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
 
 .bacheca { padding: clamp(2.75rem, 6vw, 4.5rem) var(--lato); }
 .bacheca h2, .elenco-specialita h2 { font-size: clamp(1.75rem, 3.8vw, 2.5rem); }
@@ -120,12 +120,13 @@ a { color: inherit; }
   .fondo-pagina { grid-template-columns: 2fr 1fr 1fr; }
 }
 @media (min-width: 64em) {
-  .testata { flex-wrap: nowrap; }
-  .testata__voci { flex-direction: row; gap: 1.5rem; width: auto; order: 0; }
+  .giorni { grid-template-columns: repeat(7, 1fr); }
+}
+@media (min-width: 75em) {
+  .testata__voci { flex-direction: row; flex-wrap: wrap; gap: 0 1.5rem; width: auto; order: 0; }
   .testata__voci a { padding: .5rem 0; }
   .js .testata__menu { display: none; }
   .js .testata__voci[data-chiuso] { display: flex; }
-  .giorni { grid-template-columns: repeat(7, 1fr); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -134,24 +135,19 @@ a { color: inherit; }
   .apre .intro p { animation-delay: .25s; }
   .apre .intro .pulsante { animation-delay: .35s; }
   .apre .ecg__traccia { stroke-dasharray: 1; stroke-dashoffset: 1; animation: traccia .8s ease-out .15s forwards; }
-  .apre .ecg__punto { animation: compare .2s ease-out .9s both; }
+  .apre .ecg__punto { animation: compare .2s ease-out .75s both; }
 
   .js .scheda__ico path, .js .scheda__ico circle { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .9s var(--morbido) .15s; }
   .js .scheda--fuori .scheda__ico path, .js .scheda--fuori .scheda__ico circle { stroke-dashoffset: 1; transition: none; }
   .js .scheda--fuori { opacity: 0; transform: translateY(18px); }
-  .js .scheda { transition: opacity .55s var(--morbido) calc(var(--n, 0) * 90ms), transform .55s var(--morbido) calc(var(--n, 0) * 90ms); }
+  .js .scheda { transition: opacity .55s var(--morbido), transform .55s var(--morbido); }
+  .js .scheda--n1 { transition-delay: 90ms; }
+  .js .scheda--n2 { transition-delay: 180ms; }
 }
 @keyframes sale { from { opacity: 0; transform: translateY(16px); } }
 @keyframes traccia { to { stroke-dashoffset: 0; } }
 @keyframes compare { from { opacity: 0; transform: scale(.4); } }
 
-@media print {
-  .testata__menu, .nota-demo, .vai, .ecg { display: none; }
-  .testata { position: static; }
-  body, .fondo-pagina, .intro { background: #fff; color: #000; }
-  .intro::before { display: none; }
-  .dichiarazione a[href]::after { content: " (" attr(href) ")"; }
-}
 
 .lingua-orig { font-size: .875rem; color: var(--tenue); }
 .vuoto { color: var(--tenue); margin: 0; }
@@ -221,7 +217,6 @@ a { color: inherit; }
 .indice-pagina ol { margin: .75rem 0 0; padding-left: 1.25rem; }
 .indice-pagina li + li { margin-top: .3rem; }
 .legale [id] { scroll-margin-top: 6rem; }
-.fondo-pagina--breve { display: block; text-align: center; }
 .turno { white-space: nowrap; }
 .blocco .emergenza { margin: 1.25rem 0 0; }
 .corpo--servizi { gap: 0; }
@@ -243,3 +238,16 @@ a { color: inherit; }
   .specialita-riga:hover h2 { color: var(--accento); }
 }
 .specialita-riga h2 { transition: color .3s ease; }
+
+@media print {
+  .testata__menu, .js .testata__menu, .testata__voci, .testata__tel, .nota-demo, .vai, .ecg, .pulsante, .indice-pagina { display: none; }
+  body { display: block; min-height: 0; }
+  .testata { position: static; box-shadow: none; }
+  body, .fondo-pagina, .intro, .testa-pagina, .fascia-orari { background: #fff; color: #000; }
+  .fondo-pagina, .fondo-pagina * { color: #000 !important; }
+  .fondo-pagina { break-inside: avoid; border-top: 1px solid #000; }
+  .intro::before, .testa-pagina::before { display: none; }
+  .js .scheda--fuori { opacity: 1; transform: none; }
+  .dichiarazione a[href]::after { content: " (" attr(href) ")"; }
+}
+#contenuto:focus { outline: none; }
