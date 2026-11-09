@@ -1,5 +1,5 @@
 import { TESTI, ORARI, AVVISI } from './dati.mjs';
-import { S, esc, ico, icoDisegno, percorso, NUMERO, orariBrevi, briciole } from './guscio.mjs';
+import { S, tel, esc, ico, icoDisegno, percorso, NUMERO, orariBrevi, briciole } from './guscio.mjs';
 
 const C = (lang) => TESTI.comune[lang];
 const P = (chiave, lang) => TESTI.pagine[chiave][lang];
@@ -37,7 +37,7 @@ function giorniCaselle(lang) {
     const chiuso = !g.turni.length;
     const righe = chiuso
       ? `<span>${esc(C(lang).chiuso)}</span>`
-      : g.turni.map((t) => `<span>${t.apre.replace(/^0/, '')}-${t.chiude.replace(/^0/, '')}</span>`).join('');
+      : g.turni.map((t) => `<span>${t.apre.replace(/^0/, '')}–${t.chiude.replace(/^0/, '')}</span>`).join('');
     return `      <li data-giorno="${NUMERO[g.giorno]}"${chiuso ? ' class="giorni__chiuso"' : ''}><strong>${esc(g.nome[lang])}</strong>${righe}</li>`;
   }).join('\n');
 }
@@ -45,7 +45,7 @@ function giorniCaselle(lang) {
 function tabellaOrari(lang) {
   const righe = ORARI.giorni.map((g) => {
     const valore = g.turni.length
-      ? g.turni.map((t) => `<span class="turno">${t.apre.replace(/^0/, '')}-${t.chiude.replace(/^0/, '')}</span>`).join(` ${esc(C(lang).e)} `)
+      ? g.turni.map((t) => `<span class="turno">${t.apre.replace(/^0/, '')}–${t.chiude.replace(/^0/, '')}</span>`).join(` ${esc(C(lang).e)} `)
       : esc(C(lang).chiuso);
     return `        <tr data-giorno="${NUMERO[g.giorno]}"><th scope="row">${esc(g.nome[lang])}</th><td>${valore}</td></tr>`;
   });
@@ -171,7 +171,7 @@ export function contatti(lang) {
   return `${testaPagina(lang, p)}
   <div class="corpo">
     <dl class="recapiti">
-      <div class="recapito">${ico('telefono')}<dt>${esc(p.telefono)}</dt><dd><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a><br>${esc(p.telefono_nota)}</dd></div>
+      <div class="recapito">${ico('telefono')}<dt>${esc(p.telefono)}</dt><dd><a href="tel:${S.telefono_href}">${esc(tel(lang))}</a><br>${esc(p.telefono_nota)}</dd></div>
       <div class="recapito">${ico('posta')}<dt>${esc(p.email)}</dt><dd><a href="mailto:${S.email}">${esc(S.email)}</a><br>${esc(p.email_nota)}</dd></div>
       <div class="recapito">${ico('luogo')}<dt>${esc(p.indirizzo)}</dt><dd>${esc(S.via)}, ${S.cap} ${esc(S.citta)} (${S.provincia})</dd></div>
       <div class="recapito">${ico('orologio')}<dt>${esc(p.orari)}</dt><dd>${orariBrevi(lang).join('<br>')}</dd></div>
@@ -185,7 +185,7 @@ export function contatti(lang) {
 const PRIVACY = {
   it: `<div class="legale">
       <aside class="riquadro" aria-labelledby="t-reale">
-        <h2 id="t-reale">Chi tratta davvero i dati di questo sito</h2>
+        <h2 id="t-reale">Chi è davvero il titolare dei dati di questo sito</h2>
         <p>Studio Medico Esempio non esiste: questo è un sito dimostrativo. L'informativa descrive il trattamento reale dei dati di navigazione del sito, il cui titolare è chi lo ha realizzato e lo pubblica: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
       </aside>
 
@@ -196,13 +196,13 @@ const PRIVACY = {
       <p>Il sito non ha moduli, non chiede di registrarsi e non usa cookie. Gli unici dati personali trattati sono i <strong>dati di navigazione</strong>: indirizzo IP, data e ora della richiesta, pagina richiesta e tipo di browser. Li registra in automatico il fornitore di hosting, come accade per qualunque sito web.</p>
 
       <h2>3. Finalità e base giuridica</h2>
-      <p>I dati di navigazione servono a mostrare le pagine richieste e a proteggere il sito da abusi e attacchi informatici. La base giuridica è il legittimo interesse del titolare al funzionamento e alla sicurezza del sito (art. 6, par. 1, lett. f) del Regolamento UE 2016/679).</p>
+      <p>I dati di navigazione servono a mostrare le pagine richieste e a proteggere il sito da abusi e attacchi informatici. La base giuridica è il legittimo interesse del titolare al funzionamento e alla sicurezza del sito (art. 6, par. 1, lett. f) del Regolamento (UE) 2016/679, di seguito «Regolamento»).</p>
 
       <h2>4. Destinatari</h2>
       <p>I dati sono trattati da <strong>Cloudflare, Inc.</strong>, che ospita il sito, in qualità di responsabile del trattamento, sulla base del proprio accordo sul trattamento dei dati. Non vengono comunicati ad altri soggetti né diffusi.</p>
 
       <h2>5. Trasferimento fuori dall'Unione europea</h2>
-      <p>Cloudflare ha sede negli Stati Uniti. Il trasferimento si basa sull'adesione di Cloudflare all'EU-U.S. Data Privacy Framework e sulle clausole contrattuali tipo approvate dalla Commissione europea (decisione 2021/914), incluse nel suo accordo sul trattamento dei dati.</p>
+      <p>Cloudflare ha sede negli Stati Uniti. Il trasferimento si basa sull'adesione di Cloudflare all'EU-U.S. Data Privacy Framework (decisione di adeguatezza (UE) 2023/1795, art. 45 del Regolamento) e sulle clausole contrattuali tipo adottate dalla Commissione europea (decisione di esecuzione (UE) 2021/914), incluse nel suo accordo sul trattamento dei dati.</p>
 
       <h2>6. Per quanto tempo</h2>
       <p>I dati di navigazione restano nei registri tecnici del fornitore di hosting per il tempo necessario alla sicurezza del servizio, secondo le sue politiche. Il titolare non ne conserva copie.</p>
@@ -214,33 +214,33 @@ const PRIVACY = {
       <p>I dati di navigazione sono necessari per visitare il sito. Non viene chiesto nessun altro dato.</p>
 
       <h2>9. I vostri diritti</h2>
-      <p>Potete chiedere al titolare l'accesso ai vostri dati, la rettifica, la cancellazione, la limitazione del trattamento e la portabilità, e potete opporvi al trattamento (artt. 15-22 del Regolamento), scrivendo a <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. Nessun trattamento di questo sito si basa sul consenso, quindi non c'è un consenso da revocare. Avete inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali (art. 77), dal sito <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
+      <p>Potete chiedere al titolare l'accesso ai vostri dati, la rettifica, la cancellazione, e la limitazione del trattamento, e potete opporvi al trattamento (artt. 15–22 del Regolamento), scrivendo a <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. Nessun trattamento di questo sito si basa sul consenso, quindi non c'è un consenso da revocare. Avete inoltre il diritto di proporre reclamo a un'autorità di controllo (art. 77 del Regolamento), in particolare nello Stato membro in cui risiedete abitualmente, lavorate o in cui si è verificata la presunta violazione. In Italia l'autorità è il Garante per la protezione dei dati personali: le modalità per presentare reclamo sono sul sito <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
 
       <h2>10. Area di redazione</h2>
       <p>L'area <code>/admin/</code> serve solo al titolare per aggiornare orari e avvisi, con accesso tramite account GitHub. Non è destinata ai visitatori e non raccoglie dati dei visitatori.</p>
 
-      <p class="aggiornamento">Ultimo aggiornamento: 08/11/2026</p>
+      <p class="aggiornamento">Ultimo aggiornamento: 09/11/2026</p>
     </div>`,
   en: `<div class="legale">
       <aside class="riquadro" aria-labelledby="t-reale">
-        <h2 id="t-reale">Who actually processes the data on this website</h2>
-        <p>Studio Medico Esempio does not exist: this is a demo website. This notice describes the real processing of the website's browsing data, whose controller is the person who built and publishes it: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+        <h2 id="t-reale">Who is actually responsible for the data on this website</h2>
+        <p>Studio Medico Esempio does not exist: this is a demo website. This notice describes the actual processing of browsing data on this website. The controller is the person who built and publishes the website: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
       </aside>
 
-      <h2>1. Data controller</h2>
+      <h2>1. Controller</h2>
       <p>Giovanni Paolo Fusco, who can be contacted at <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. No data protection officer (DPO) has been appointed.</p>
 
       <h2>2. What data is processed</h2>
-      <p>The website has no forms, does not ask you to register and does not use cookies. The only personal data processed is <strong>browsing data</strong>: IP address, date and time of the request, the page requested and the browser type. It is recorded automatically by the hosting provider, as happens on any website.</p>
+      <p>The website has no forms, does not ask you to register and does not use cookies. The only personal data processed is <strong>browsing data</strong>: IP address, date and time of the request, the page requested and the browser type. It is recorded automatically by the hosting provider, as is the case for any website.</p>
 
       <h2>3. Purposes and legal basis</h2>
-      <p>Browsing data is used to serve the pages you request and to protect the website from abuse and cyber attacks. The legal basis is the controller's legitimate interest in the operation and security of the website (Article 6(1)(f) of Regulation (EU) 2016/679).</p>
+      <p>Browsing data is used to serve the pages you request and to protect the website from abuse and cyberattacks. The legal basis is the controller's legitimate interest in the operation and security of the website (Article 6(1)(f) of Regulation (EU) 2016/679, the “Regulation”).</p>
 
       <h2>4. Recipients</h2>
       <p>The data is processed by <strong>Cloudflare, Inc.</strong>, which hosts the website, as a data processor under its data processing agreement. It is not disclosed to anyone else or made public.</p>
 
       <h2>5. Transfers outside the European Union</h2>
-      <p>Cloudflare is based in the United States. The transfer relies on Cloudflare's participation in the EU-U.S. Data Privacy Framework and on the standard contractual clauses approved by the European Commission (Decision 2021/914), which are part of its data processing agreement.</p>
+      <p>Cloudflare is based in the United States. The transfer relies on Cloudflare's participation in the EU-U.S. Data Privacy Framework (Commission Implementing Decision (EU) 2023/1795, Article 45 of the Regulation) and on the standard contractual clauses adopted by the European Commission (Commission Implementing Decision (EU) 2021/914), which are part of its data processing agreement.</p>
 
       <h2>6. How long data is kept</h2>
       <p>Browsing data stays in the hosting provider's technical logs for as long as needed to keep the service secure, under the provider's own policies. The controller does not keep copies.</p>
@@ -252,12 +252,12 @@ const PRIVACY = {
       <p>Browsing data is needed to visit the website. No other data is requested.</p>
 
       <h2>9. Your rights</h2>
-      <p>You can ask the controller for access to your data, rectification, erasure, restriction of processing and data portability, and you can object to the processing (Articles 15-22 of the Regulation), by writing to <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. None of the processing on this website is based on consent, so there is no consent to withdraw. You also have the right to lodge a complaint with the Italian data protection authority, the Garante per la protezione dei dati personali (Article 77), via <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
+      <p>You can ask the controller for access to your data, rectification, erasure and restriction of processing, and you can object to the processing (Articles 15–22 of the Regulation), by writing to <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. None of the processing on this website is based on consent, so there is no consent to withdraw. You also have the right to lodge a complaint with a supervisory authority (Article 77 of the Regulation), in particular in the Member State of your habitual residence, place of work or place of the alleged infringement. In Italy, the supervisory authority is the <span lang="it">Garante per la protezione dei dati personali</span>; see <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a> for how to lodge a complaint.</p>
 
       <h2>10. Editing area</h2>
       <p>The <code>/admin/</code> area is used only by the controller to update opening hours and notices, with access through a GitHub account. It is not intended for visitors and collects no visitor data.</p>
 
-      <p class="aggiornamento">Last updated: 08/11/2026</p>
+      <p class="aggiornamento">Last updated: 9 November 2026</p>
     </div>`,
 };
 

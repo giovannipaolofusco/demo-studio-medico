@@ -1,6 +1,7 @@
 import { TESTI, ORARI } from './dati.mjs';
 
 export const S = TESTI.sito;
+export const tel = (lang) => (lang === 'en' ? S.telefono_ld : S.telefono);
 export const DOM = S.dominio;
 const OG = `${DOM}/assets/img/og-studio-medico-esempio.jpg`;
 
@@ -41,7 +42,7 @@ export const ico = (nome, cls = 'ico') => `<svg class="${cls}" viewBox="0 0 24 2
 export const icoDisegno = (nome) => `<svg class="scheda__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONE[nome].replace(/<(path|circle|rect)/g, '<$1 pathLength="1"')}</svg>`;
 
 export const ora = (h) => h.replace(/^0/, '');
-export const turni = (g, lang) => g.turni.map((t) => `${ora(t.apre)}-${ora(t.chiude)}`).join(` ${TESTI.comune[lang].e} `);
+export const turni = (g, lang) => g.turni.map((t) => `${ora(t.apre)}–${ora(t.chiude)}`).join(` ${TESTI.comune[lang].e} `);
 export const NUMERO = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
 
 export function orariBrevi(lang) {
@@ -54,7 +55,7 @@ export function orariBrevi(lang) {
   }
   return gruppi.map((x) => {
     const da = x.inizio.nome[lang].slice(0, 3);
-    const nomi = x.inizio === x.fine ? da : `${da}-${x.fine.nome[lang].slice(0, 3)}`;
+    const nomi = x.inizio === x.fine ? da : `${da}–${x.fine.nome[lang].slice(0, 3)}`;
     return `${esc(nomi)} ${x.inizio.turni.length ? esc(turni(x.inizio, lang)) : C.chiuso.toLowerCase()}`;
   });
 }
@@ -150,7 +151,7 @@ function testata(lang, chiave) {
 <nav class="testata" aria-label="${esc(C.nav_principale)}">
   <a class="testata__marchio" href="${percorso(lang, 'home')}">${esc(S.nome)}</a>
   <div class="testata__azioni">
-    <a class="testata__tel" href="tel:${S.telefono_href}" aria-label="${esc(C.chiama_aria)} ${esc(S.telefono)}">${ico('telefono')}<span>${esc(S.telefono)}</span></a>
+    <a class="testata__tel" href="tel:${S.telefono_href}" aria-label="${esc(C.chiama_aria)} ${esc(tel(lang))}">${ico('telefono')}<span>${esc(tel(lang))}</span></a>
     <button class="testata__menu" type="button" aria-expanded="false" aria-controls="voci" aria-label="${esc(C.menu_apri)}">
       ${ico('linee', 'ico ico--linee')}
       ${ico('chiudi', 'ico ico--x')}
@@ -174,7 +175,7 @@ function piede(lang) {
   </div>
   <div>
     <h2>${esc(C.piede_recapiti)}</h2>
-    <p><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a></p>
+    <p><a href="tel:${S.telefono_href}">${esc(tel(lang))}</a></p>
     <p><a href="mailto:${S.email}">${esc(S.email)}</a></p>
     <h2 class="fondo-pagina__secondo">${esc(C.piede_orari)}</h2>
     <p class="fondo-pagina__orari">${orariBrevi(lang).join('<br>')}</p>

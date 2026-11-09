@@ -2,13 +2,13 @@
   "voci": [
     {
       "visibile": true,
-      "titolo": { "it": "Chiusura per festività", "en": "Closed for the holiday" },
-      "testo": { "it": "Martedì 8 dicembre lo studio resta chiuso. Si riapre mercoledì 9 alle 9:00.", "en": "The practice is closed on Tuesday 8 December. We reopen on Wednesday 9 at 9:00." }
+      "titolo": { "it": "Chiusura per festività", "en": "Closed for a public holiday" },
+      "testo": { "it": "Martedì 8 dicembre lo studio resta chiuso. Si riapre mercoledì 9 alle 9:00.", "en": "The practice is closed on Tuesday 8 December. We reopen on Wednesday 9 December at 9:00." }
     },
     {
       "visibile": true,
       "titolo": { "it": "Vaccinazione antinfluenzale", "en": "Flu vaccination" },
-      "testo": { "it": "Per i pazienti dei medici dello studio, su prenotazione telefonica negli orari di apertura.", "en": "For patients of the practice's doctors. Book by phone during opening hours." }
+      "testo": { "it": "Per i pazienti dei medici dello studio, su prenotazione telefonica negli orari di apertura.", "en": "For patients registered with the practice's doctors. Book by phone during opening hours." }
     }
   ]
 }
