@@ -5,6 +5,9 @@
 node_modules/
 dist/
 
+# Suite E2E: strumentazione locale, con un package.json proprio
+_qa/
+
 # File di governance, mai nel repository (CLAUDE.md §2.3)
 CLAUDE.md
 AGENTS.md
