@@ -9,7 +9,7 @@
       setTimeout(function () {
         window.scrollTo(0, Number(salto[1]));
         window.__ready = true;
-      }, 350);
+      }, 600);
     }, document.documentElement.classList.contains('apre') ? 1100 : 0);
   });
 
