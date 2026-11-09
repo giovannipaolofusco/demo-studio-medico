@@ -1,6 +1,27 @@
 (function () {
   var inglese = document.documentElement.lang === 'en';
 
+  var salto = /[?&]jump=(\d+)/.exec(location.search);
+  Promise.resolve(document.fonts && document.fonts.ready).then(function () {
+    setTimeout(function () {
+      if (!salto) { window.__ready = true; return; }
+      var y = Number(salto[1]);
+      var barra = document.querySelector('.testata');
+      if (barra && y > 0) {
+        barra.style.transition = 'none';
+        barra.classList.add('testata--compatta');
+      }
+      window.scrollTo(0, y);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          window.scrollTo(0, y);
+          if (barra) { barra.style.transition = ''; }
+          window.__ready = true;
+        });
+      });
+    }, document.documentElement.classList.contains('apre') ? 1000 : 0);
+  });
+
   var bottone = document.querySelector('.testata__menu');
   var voci = document.getElementById('voci');
   if (bottone && voci) {
@@ -9,6 +30,12 @@
       bottone.setAttribute('aria-expanded', String(!aperto));
       bottone.setAttribute('aria-label', aperto ? (inglese ? 'Open the menu' : 'Apri il menu') : (inglese ? 'Close the menu' : 'Chiudi il menu'));
       if (aperto) { voci.setAttribute('data-chiuso', ''); } else { voci.removeAttribute('data-chiuso'); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && bottone.getAttribute('aria-expanded') === 'true') {
+        bottone.click();
+        bottone.focus();
+      }
     });
   }
 
@@ -19,7 +46,9 @@
     var etichetta = document.createElement('span');
     etichetta.className = 'giorni__etichetta';
     etichetta.textContent = inglese ? 'Today' : 'Oggi';
-    (giorno.querySelector('th') || giorno).appendChild(etichetta);
+    var cella = giorno.querySelector('th') || giorno;
+    cella.appendChild(document.createTextNode(' '));
+    cella.appendChild(etichetta);
   });
 
   if (!('IntersectionObserver' in window)) { return; }

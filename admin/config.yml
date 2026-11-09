@@ -3,6 +3,7 @@ backend:
   repo: giovannipaolofusco/demo-studio-medico
   branch: main
   base_url: https://pannello-auth-demo.gpf-edge.workers.dev
+  auth_scope: public_repo
   commit_messages:
     update: 'Aggiorna {{collection}} dal pannello - {{author-login}}'
 
@@ -54,8 +55,8 @@ collections:
                 summary: "{{fields.apre}}-{{fields.chiude}}"
                 hint: "Nessuna fascia = studio chiuso quel giorno."
                 fields:
-                  - {name: apre, label: "Apre", widget: string, pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 09:00"]}
-                  - {name: chiude, label: "Chiude", widget: string, pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 13:00"]}
+                  - {name: apre, label: "Apre", widget: string, hint: "Formato 09:00", pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 09:00"]}
+                  - {name: chiude, label: "Chiude", widget: string, hint: "Formato 13:00", pattern: ['^([01]\d|2[0-3]):[0-5]\d$', "Scrivi l'orario come 13:00"]}
 
   - name: avvisi
     label: "Avvisi dello studio"

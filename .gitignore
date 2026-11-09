@@ -1,11 +1,14 @@
-# Sistema e dipendenze (CLAUDE.md §2.2)
+# Sistema e dipendenze
 .env
 .env.*
 *.log
 node_modules/
 dist/
 
-# File di governance, mai nel repository (CLAUDE.md §2.3)
+# Strumentazione di test locale
+_qa/
+
+# File di lavoro locali
 CLAUDE.md
 AGENTS.md
 overview.md

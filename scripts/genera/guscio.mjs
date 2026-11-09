@@ -1,8 +1,12 @@
 import { TESTI, ORARI } from './dati.mjs';
 
 export const S = TESTI.sito;
+export const tel = (lang) => (lang === 'en' ? S.telefono_ld : S.telefono);
 export const DOM = S.dominio;
+// Una sola immagine per tutte le pagine e le lingue (CLAUDE.md §7.1): il sottotitolo non dipende dalla lingua.
 const OG = `${DOM}/assets/img/og-studio-medico-esempio.jpg`;
+// Chi riceve il link di una pagina interna in chat deve leggere che lo studio e' inventato.
+const condivisa = (lang, d) => (/dimostrativ|demo/i.test(d) ? d : `${d} ${TESTI.comune[lang].demo}.`);
 
 export const esc = (v) => String(v ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -41,7 +45,7 @@ export const ico = (nome, cls = 'ico') => `<svg class="${cls}" viewBox="0 0 24 2
 export const icoDisegno = (nome) => `<svg class="scheda__ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONE[nome].replace(/<(path|circle|rect)/g, '<$1 pathLength="1"')}</svg>`;
 
 export const ora = (h) => h.replace(/^0/, '');
-export const turni = (g, lang) => g.turni.map((t) => `${ora(t.apre)}-${ora(t.chiude)}`).join(` ${TESTI.comune[lang].e} `);
+export const turni = (g, lang) => g.turni.map((t) => `${ora(t.apre)}–${ora(t.chiude)}`).join(` ${TESTI.comune[lang].e} `);
 export const NUMERO = { Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 };
 
 export function orariBrevi(lang) {
@@ -54,8 +58,9 @@ export function orariBrevi(lang) {
   }
   return gruppi.map((x) => {
     const da = x.inizio.nome[lang].slice(0, 3);
-    const nomi = x.inizio === x.fine ? da : `${da}-${x.fine.nome[lang].slice(0, 3)}`;
-    return `${esc(nomi)} ${x.inizio.turni.length ? esc(turni(x.inizio, lang)) : C.chiuso.toLowerCase()}`;
+    const nomi = x.inizio === x.fine ? da : `${da}–${x.fine.nome[lang].slice(0, 3)}`;
+    const fasce = x.inizio.turni.map((t) => `<span class="turno">${ora(t.apre)}–${ora(t.chiude)}</span>`).join(` ${esc(C.e)} `);
+    return `${esc(nomi)} ${x.inizio.turni.length ? fasce : C.chiuso.toLowerCase()}`;
   });
 }
 
@@ -107,7 +112,7 @@ function testa(lang, chiave, title, description, ld) {
 <meta property="og:site_name" content="${esc(S.nome)}">
 <meta property="og:locale" content="${lang === 'it' ? 'it_IT' : 'en_GB'}">
 <meta property="og:title" content="${esc(title)}">
-<meta property="og:description" content="${esc(description)}">
+<meta property="og:description" content="${esc(condivisa(lang, description))}">
 <meta property="og:url" content="${assoluto(lang, chiave)}">
 <meta property="og:image" content="${OG}">
 <meta property="og:image:secure_url" content="${OG}">
@@ -117,7 +122,7 @@ function testa(lang, chiave, title, description, ld) {
 <meta property="og:image:alt" content="${esc(alt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)}">
-<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:description" content="${esc(condivisa(lang, description))}">
 <meta name="twitter:image" content="${OG}">
 <meta name="twitter:image:alt" content="${esc(alt)}">
 <meta name="theme-color" content="#5f2852">
@@ -134,7 +139,7 @@ function testa(lang, chiave, title, description, ld) {
 ${ld}`;
 }
 
-function testata(lang, chiave) {
+export function testata(lang, chiave) {
   const C = TESTI.comune[lang];
   const voci = MENU.map((k) => {
     const nome = esc(TESTI.pagine[k][lang].menu);
@@ -143,14 +148,14 @@ function testata(lang, chiave) {
       : `    <li><a href="${percorso(lang, k)}">${nome}</a></li>`;
   });
   const altra = lang === 'it' ? 'en' : 'it';
-  voci.push(`    <li><a href="${percorso(altra, chiave)}" hreflang="${altra}" lang="${altra}">${esc(C.altra_lingua_breve)}<span class="testata__lingua"> ${esc(C.altra_lingua)}</span></a></li>`);
+  voci.push(`    <li><a href="${percorso(altra, chiave || 'home')}" hreflang="${altra}" lang="${altra}">${esc(C.altra_lingua_breve)}<span class="testata__lingua"> ${esc(C.altra_lingua)}</span></a></li>`);
   return `<a class="vai" href="#contenuto">${esc(C.salta)}</a>
 <p class="nota-demo" role="note">${esc(C.demo)}</p>
 <div class="sentinella" aria-hidden="true"></div>
 <nav class="testata" aria-label="${esc(C.nav_principale)}">
   <a class="testata__marchio" href="${percorso(lang, 'home')}">${esc(S.nome)}</a>
   <div class="testata__azioni">
-    <a class="testata__tel" href="tel:${S.telefono_href}" aria-label="${esc(C.chiama_aria)} ${esc(S.telefono)}">${ico('telefono')}<span>${esc(S.telefono)}</span></a>
+    <a class="testata__tel" href="tel:${S.telefono_href}" aria-label="${esc(C.chiama_aria)} ${esc(tel(lang))}">${ico('telefono')}<span>${esc(tel(lang))}</span></a>
     <button class="testata__menu" type="button" aria-expanded="false" aria-controls="voci" aria-label="${esc(C.menu_apri)}">
       ${ico('linee', 'ico ico--linee')}
       ${ico('chiudi', 'ico ico--x')}
@@ -162,7 +167,7 @@ ${voci.join('\n')}
 </nav>`;
 }
 
-function piede(lang) {
+export function piede(lang) {
   const C = TESTI.comune[lang];
   const fiscale = C.fiscale.replace('{piva}', S.piva).replace('{cf}', S.cf);
   return `<footer class="fondo-pagina" id="piede">
@@ -174,7 +179,7 @@ function piede(lang) {
   </div>
   <div>
     <h2>${esc(C.piede_recapiti)}</h2>
-    <p><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a></p>
+    <p><a href="tel:${S.telefono_href}">${esc(tel(lang))}</a></p>
     <p><a href="mailto:${S.email}">${esc(S.email)}</a></p>
     <h2 class="fondo-pagina__secondo">${esc(C.piede_orari)}</h2>
     <p class="fondo-pagina__orari">${orariBrevi(lang).join('<br>')}</p>
@@ -206,7 +211,7 @@ ${testa(lang, chiave, title, description, ld)}
 <body>
 ${testata(lang, chiave)}
 
-<main id="contenuto">
+<main id="contenuto" tabindex="-1">
 ${corpo}
 </main>
 

@@ -11,7 +11,10 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 writeFileSync('assets/favicon/icon.svg', svg);
 const misure = { 'favicon-16x16.png': 16, 'favicon-32x32.png': 32, 'apple-touch-icon.png': 180, 'android-chrome-192x192.png': 192, 'android-chrome-512x512.png': 512 };
 for (const [nome, lato] of Object.entries(misure)) {
-  await sharp(Buffer.from(svg), { density: 72 * lato / 64 * 4 }).resize(lato, lato).png().toFile(`assets/favicon/${nome}`);
+  // iOS arrotonda da se' gli angoli e riempie di nero quelli trasparenti: fondo pieno.
+  const sorgente = nome === 'apple-touch-icon.png' ? svg.replace(' rx="14"', '') : svg;
+  const img = sharp(Buffer.from(sorgente), { density: 72 * lato / 64 * 4 }).resize(lato, lato);
+  await (nome === 'apple-touch-icon.png' ? img.flatten({ background: '#5f2852' }) : img).png().toFile(`assets/favicon/${nome}`);
 }
 
 const png = readFileSync('assets/favicon/favicon-32x32.png');

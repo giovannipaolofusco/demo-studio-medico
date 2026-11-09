@@ -1,5 +1,5 @@
 import { TESTI, ORARI, AVVISI } from './dati.mjs';
-import { S, esc, ico, icoDisegno, percorso, NUMERO, orariBrevi, briciole } from './guscio.mjs';
+import { S, tel, esc, ico, icoDisegno, percorso, NUMERO, orariBrevi, briciole } from './guscio.mjs';
 
 const C = (lang) => TESTI.comune[lang];
 const P = (chiave, lang) => TESTI.pagine[chiave][lang];
@@ -37,7 +37,7 @@ function giorniCaselle(lang) {
     const chiuso = !g.turni.length;
     const righe = chiuso
       ? `<span>${esc(C(lang).chiuso)}</span>`
-      : g.turni.map((t) => `<span>${t.apre.replace(/^0/, '')}-${t.chiude.replace(/^0/, '')}</span>`).join('');
+      : g.turni.map((t) => `<span>${t.apre.replace(/^0/, '')}–${t.chiude.replace(/^0/, '')}</span>`).join('');
     return `      <li data-giorno="${NUMERO[g.giorno]}"${chiuso ? ' class="giorni__chiuso"' : ''}><strong>${esc(g.nome[lang])}</strong>${righe}</li>`;
   }).join('\n');
 }
@@ -45,7 +45,7 @@ function giorniCaselle(lang) {
 function tabellaOrari(lang) {
   const righe = ORARI.giorni.map((g) => {
     const valore = g.turni.length
-      ? g.turni.map((t) => `<span class="turno">${t.apre.replace(/^0/, '')}-${t.chiude.replace(/^0/, '')}</span>`).join(` ${esc(C(lang).e)} `)
+      ? g.turni.map((t) => `<span class="turno">${t.apre.replace(/^0/, '')}–${t.chiude.replace(/^0/, '')}</span>`).join(` ${esc(C(lang).e)} `)
       : esc(C(lang).chiuso);
     return `        <tr data-giorno="${NUMERO[g.giorno]}"><th scope="row">${esc(g.nome[lang])}</th><td>${valore}</td></tr>`;
   });
@@ -58,7 +58,7 @@ ${righe.join('\n')}
 
 export function home(lang) {
   const p = P('home', lang);
-  const schede = TESTI.specialita.map((s, i) => `      <li class="scheda" style="--n:${i}">
+  const schede = TESTI.specialita.map((s, i) => `      <li class="scheda${i ? ` scheda--n${i}` : ''}">
         ${icoDisegno(s.icona)}
         <h3>${esc(s.nome[lang])}</h3>
         <p>${esc(s.breve[lang])}</p>
@@ -118,7 +118,7 @@ ${blocchi}
 
 export function servizi(lang) {
   const p = P('servizi', lang);
-  const blocchi = TESTI.specialita.map((s, i) => `    <section class="blocco specialita-riga scheda" style="--n:${i}" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
+  const blocchi = TESTI.specialita.map((s, i) => `    <section class="blocco specialita-riga scheda${i ? ` scheda--n${i}` : ''}" id="${s.chiave}" aria-labelledby="t-${s.chiave}">
       <div class="specialita-riga__testa">
         ${icoDisegno(s.icona)}
         <h2 id="t-${s.chiave}">${esc(s.nome[lang])}</h2>
@@ -171,7 +171,7 @@ export function contatti(lang) {
   return `${testaPagina(lang, p)}
   <div class="corpo">
     <dl class="recapiti">
-      <div class="recapito">${ico('telefono')}<dt>${esc(p.telefono)}</dt><dd><a href="tel:${S.telefono_href}">${esc(S.telefono)}</a><br>${esc(p.telefono_nota)}</dd></div>
+      <div class="recapito">${ico('telefono')}<dt>${esc(p.telefono)}</dt><dd><a href="tel:${S.telefono_href}">${esc(tel(lang))}</a><br>${esc(p.telefono_nota)}</dd></div>
       <div class="recapito">${ico('posta')}<dt>${esc(p.email)}</dt><dd><a href="mailto:${S.email}">${esc(S.email)}</a><br>${esc(p.email_nota)}</dd></div>
       <div class="recapito">${ico('luogo')}<dt>${esc(p.indirizzo)}</dt><dd>${esc(S.via)}, ${S.cap} ${esc(S.citta)} (${S.provincia})</dd></div>
       <div class="recapito">${ico('orologio')}<dt>${esc(p.orari)}</dt><dd>${orariBrevi(lang).join('<br>')}</dd></div>
@@ -185,7 +185,7 @@ export function contatti(lang) {
 const PRIVACY = {
   it: `<div class="legale">
       <aside class="riquadro" aria-labelledby="t-reale">
-        <h2 id="t-reale">Chi tratta davvero i dati di questo sito</h2>
+        <h2 id="t-reale">Chi è davvero il titolare dei dati di questo sito</h2>
         <p>Studio Medico Esempio non esiste: questo è un sito dimostrativo. L'informativa descrive il trattamento reale dei dati di navigazione del sito, il cui titolare è chi lo ha realizzato e lo pubblica: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
       </aside>
 
@@ -196,72 +196,106 @@ const PRIVACY = {
       <p>Il sito non ha moduli, non chiede di registrarsi e non usa cookie. Gli unici dati personali trattati sono i <strong>dati di navigazione</strong>: indirizzo IP, data e ora della richiesta, pagina richiesta e tipo di browser. Li registra in automatico il fornitore di hosting, come accade per qualunque sito web.</p>
 
       <h2>3. Finalità e base giuridica</h2>
-      <p>I dati di navigazione servono a mostrare le pagine richieste e a proteggere il sito da abusi e attacchi informatici. La base giuridica è il legittimo interesse del titolare al funzionamento e alla sicurezza del sito (art. 6, par. 1, lett. f) del Regolamento UE 2016/679).</p>
+      <p>I dati di navigazione servono a mostrare le pagine richieste e a proteggere il sito da abusi e attacchi informatici. La base giuridica è il legittimo interesse del titolare al funzionamento e alla sicurezza del sito (art. 6, par. 1, lett. f) del Regolamento (UE) 2016/679, di seguito «Regolamento»).</p>
 
       <h2>4. Destinatari</h2>
-      <p>I dati sono trattati da <strong>Cloudflare, Inc.</strong>, che ospita il sito, in qualità di responsabile del trattamento, sulla base del proprio accordo sul trattamento dei dati. Non vengono comunicati ad altri soggetti né diffusi.</p>
+      <p>I dati sono trattati da <strong>Cloudflare, Inc.</strong>, che ospita il sito, in qualità di responsabile del trattamento, sulla base del proprio accordo sul trattamento dei dati. Cloudflare può affidare parti del servizio ad altri responsabili del trattamento (sub-responsabili), elencati su <a href="https://www.cloudflare.com/gdpr/subprocessors/" rel="noopener noreferrer">cloudflare.com/gdpr/subprocessors</a>. I dati non vengono comunicati ad altri soggetti né diffusi.</p>
 
       <h2>5. Trasferimento fuori dall'Unione europea</h2>
-      <p>Cloudflare ha sede negli Stati Uniti. Il trasferimento si basa sull'adesione di Cloudflare all'EU-U.S. Data Privacy Framework e sulle clausole contrattuali tipo approvate dalla Commissione europea (decisione 2021/914), incluse nel suo accordo sul trattamento dei dati.</p>
+      <p>Cloudflare ha sede negli Stati Uniti. Il trasferimento si basa sull'adesione di Cloudflare all'EU-U.S. Data Privacy Framework (decisione di esecuzione (UE) 2023/1795, decisione di adeguatezza ai sensi dell'art. 45 del Regolamento) e sulle clausole contrattuali tipo adottate dalla Commissione europea (decisione di esecuzione (UE) 2021/914), incluse nel suo accordo sul trattamento dei dati. Alcuni sub-responsabili di Cloudflare si trovano anch'essi fuori dall'Unione europea. Copia delle clausole contrattuali tipo è disponibile nell'accordo sul trattamento dei dati di Cloudflare, <a href="https://www.cloudflare.com/cloudflare-customer-dpa/" rel="noopener noreferrer">cloudflare.com/cloudflare-customer-dpa</a>, oppure su richiesta al titolare.</p>
 
       <h2>6. Per quanto tempo</h2>
-      <p>I dati di navigazione restano nei registri tecnici del fornitore di hosting per il tempo necessario alla sicurezza del servizio, secondo le sue politiche. Il titolare non ne conserva copie.</p>
+      <p>I dati di navigazione restano nei registri tecnici del fornitore di hosting per il tempo necessario alla sicurezza del servizio, secondo le sue politiche, descritte su <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">cloudflare.com/privacypolicy</a>. Il titolare non ne conserva copie.</p>
 
       <h2>7. Cookie e memoria del browser</h2>
-      <p>Il sito non usa cookie. Usa la memoria di sessione del browser (<code>sessionStorage</code>) solo per ricordare che l'animazione di apertura è già stata mostrata: è un'informazione tecnica, non identifica nessuno e si cancella chiudendo la scheda. Per questo non serve alcun banner di consenso.</p>
+      <p>Il sito non usa cookie. Usa la memoria di sessione del browser (<code>sessionStorage</code>, voce <code>apertura-vista</code>) solo per ricordare che l'animazione di apertura è già stata mostrata: è una memorizzazione tecnica che serve al funzionamento del sito come è stato progettato, non contiene dati personali e si cancella chiudendo la scheda. Per questo non richiede consenso (art. 122, comma 1, del d.lgs. 196/2003) e non serve alcun banner.</p>
 
       <h2>8. È obbligatorio fornire i dati?</h2>
       <p>I dati di navigazione sono necessari per visitare il sito. Non viene chiesto nessun altro dato.</p>
 
       <h2>9. I vostri diritti</h2>
-      <p>Potete chiedere al titolare l'accesso ai vostri dati, la rettifica, la cancellazione, la limitazione del trattamento e la portabilità, e potete opporvi al trattamento (artt. 15-22 del Regolamento), scrivendo a <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. Nessun trattamento di questo sito si basa sul consenso, quindi non c'è un consenso da revocare. Avete inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali (art. 77), dal sito <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
+      <p>Potete chiedere al titolare l'accesso ai vostri dati, la rettifica, la cancellazione e la limitazione del trattamento (artt. 15–18 del Regolamento), scrivendo a <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. Poiché il titolare non conserva i dati di navigazione, le richieste che riguardano i registri del fornitore saranno gestite tramite Cloudflare.</p>
+      <p><strong>Diritto di opposizione.</strong> Potete opporvi in qualsiasi momento, per motivi connessi alla vostra situazione particolare, al trattamento basato sul legittimo interesse (art. 21 del Regolamento).</p>
+      <p>Nessun trattamento di questo sito si basa sul consenso, quindi non c'è un consenso da revocare.</p>
 
-      <h2>10. Area di redazione</h2>
-      <p>L'area <code>/admin/</code> serve solo al titolare per aggiornare orari e avvisi, con accesso tramite account GitHub. Non è destinata ai visitatori e non raccoglie dati dei visitatori.</p>
+      <h2>10. Processi decisionali automatizzati</h2>
+      <p>Non è previsto alcun processo decisionale automatizzato, compresa la profilazione, di cui all'art. 22, paragrafi 1 e 4, del Regolamento.</p>
 
-      <p class="aggiornamento">Ultimo aggiornamento: 08/11/2026</p>
+      <h2>11. Reclamo</h2>
+      <p>Avete il diritto di proporre reclamo a un'autorità di controllo (art. 77 del Regolamento), in particolare nello Stato membro in cui risiedete abitualmente, lavorate o in cui si è verificata la presunta violazione. In Italia l'autorità è il Garante per la protezione dei dati personali: le modalità per presentare reclamo sono sul sito <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
+
+      <h2>12. Minori</h2>
+      <p>Nessun trattamento di questo sito si basa sul consenso, quindi non si applicano le regole sul consenso dei minori (art. 8 del Regolamento e art. 2-quinquies del d.lgs. 196/2003). I soli dati trattati sono quelli di navigazione, uguali per ogni visitatore. Un genitore o chi esercita la responsabilità genitoriale può esercitare i diritti della sezione 9 per conto del minore, scrivendo a <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+
+      <h2>13. Modifiche all'informativa e nuove finalità</h2>
+      <p>Se l'informativa cambia, la versione aggiornata viene pubblicata su questa pagina con la nuova data di aggiornamento. Prima di usare i dati di navigazione per una finalità diversa da quelle descritte qui, il titolare indicherà la nuova finalità, con ogni altra informazione pertinente, in questa pagina e con un avviso sul sito.</p>
+
+      <h2>14. Area di redazione</h2>
+      <p>L'area <code>/admin/</code> serve solo al titolare per aggiornare orari e avvisi, con accesso tramite account GitHub. Non è destinata ai visitatori e non raccoglie dati dei visitatori. Il pannello salva nel browser di chi lo usa (<code>localStorage</code>) alcune preferenze di visualizzazione e la sessione di accesso: restano su quel dispositivo e servono solo al suo funzionamento.</p>
+
+      <h2>15. Contatti</h2>
+      <p>Per qualunque domanda su questa informativa o sui vostri dati: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+
+      <p class="aggiornamento">Ultimo aggiornamento: 09/11/2026</p>
     </div>`,
   en: `<div class="legale">
       <aside class="riquadro" aria-labelledby="t-reale">
-        <h2 id="t-reale">Who actually processes the data on this website</h2>
-        <p>Studio Medico Esempio does not exist: this is a demo website. This notice describes the real processing of the website's browsing data, whose controller is the person who built and publishes it: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+        <h2 id="t-reale">Who is actually responsible for the data on this website</h2>
+        <p>Studio Medico Esempio does not exist: this is a demo website. This notice describes the actual processing of browsing data on this website. The controller is the person who built and publishes the website: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
       </aside>
 
-      <h2>1. Data controller</h2>
+      <h2>1. Controller</h2>
       <p>Giovanni Paolo Fusco, who can be contacted at <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. No data protection officer (DPO) has been appointed.</p>
 
       <h2>2. What data is processed</h2>
-      <p>The website has no forms, does not ask you to register and does not use cookies. The only personal data processed is <strong>browsing data</strong>: IP address, date and time of the request, the page requested and the browser type. It is recorded automatically by the hosting provider, as happens on any website.</p>
+      <p>The website has no forms, does not ask you to register and does not use cookies. The only personal data processed is <strong>browsing data</strong>: IP address, date and time of the request, the page requested and the browser type. It is recorded automatically by the hosting provider, as is the case for any website.</p>
 
       <h2>3. Purposes and legal basis</h2>
-      <p>Browsing data is used to serve the pages you request and to protect the website from abuse and cyber attacks. The legal basis is the controller's legitimate interest in the operation and security of the website (Article 6(1)(f) of Regulation (EU) 2016/679).</p>
+      <p>Browsing data is used to serve the pages you request and to protect the website from abuse and cyberattacks. The legal basis is the controller's legitimate interest in the operation and security of the website (Article 6(1)(f) of Regulation (EU) 2016/679, the “Regulation”).</p>
 
       <h2>4. Recipients</h2>
-      <p>The data is processed by <strong>Cloudflare, Inc.</strong>, which hosts the website, as a data processor under its data processing agreement. It is not disclosed to anyone else or made public.</p>
+      <p>The data is processed by <strong>Cloudflare, Inc.</strong>, which hosts the website, as a data processor under its data processing agreement. Cloudflare may entrust parts of the service to other processors (sub-processors), listed at <a href="https://www.cloudflare.com/gdpr/subprocessors/" rel="noopener noreferrer">cloudflare.com/gdpr/subprocessors</a>. The data is not disclosed to anyone else or made public.</p>
 
       <h2>5. Transfers outside the European Union</h2>
-      <p>Cloudflare is based in the United States. The transfer relies on Cloudflare's participation in the EU-U.S. Data Privacy Framework and on the standard contractual clauses approved by the European Commission (Decision 2021/914), which are part of its data processing agreement.</p>
+      <p>Cloudflare is based in the United States. The transfer relies on Cloudflare's participation in the EU-U.S. Data Privacy Framework (Commission Implementing Decision (EU) 2023/1795, an adequacy decision under Article 45 of the Regulation) and on the standard contractual clauses adopted by the European Commission (Commission Implementing Decision (EU) 2021/914), which are part of its data processing agreement. Some of Cloudflare's sub-processors are also located outside the European Union. A copy of the standard contractual clauses is available in Cloudflare's data processing agreement, <a href="https://www.cloudflare.com/cloudflare-customer-dpa/" rel="noopener noreferrer">cloudflare.com/cloudflare-customer-dpa</a>, or on request from the controller.</p>
 
       <h2>6. How long data is kept</h2>
-      <p>Browsing data stays in the hosting provider's technical logs for as long as needed to keep the service secure, under the provider's own policies. The controller does not keep copies.</p>
+      <p>Browsing data stays in the hosting provider's technical logs for as long as needed to keep the service secure, under the provider's own policies, described at <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">cloudflare.com/privacypolicy</a>. The controller does not keep copies.</p>
 
       <h2>7. Cookies and browser storage</h2>
-      <p>The website does not use cookies. It uses the browser's session storage (<code>sessionStorage</code>) only to remember that the opening animation has already been shown: this is technical information, it does not identify anyone and it is deleted when you close the tab. For this reason no consent banner is needed.</p>
+      <p>The website does not use cookies. It uses the browser's session storage (<code>sessionStorage</code>, key <code>apertura-vista</code>) only to remember that the opening animation has already been shown: this is technical storage needed for the website to work as designed, it contains no personal data and it is deleted when you close the tab. For this reason it does not require consent (Article 122(1) of Italian Legislative Decree 196/2003) and no banner is needed.</p>
 
       <h2>8. Do you have to provide your data?</h2>
       <p>Browsing data is needed to visit the website. No other data is requested.</p>
 
       <h2>9. Your rights</h2>
-      <p>You can ask the controller for access to your data, rectification, erasure, restriction of processing and data portability, and you can object to the processing (Articles 15-22 of the Regulation), by writing to <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. None of the processing on this website is based on consent, so there is no consent to withdraw. You also have the right to lodge a complaint with the Italian data protection authority, the Garante per la protezione dei dati personali (Article 77), via <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a>.</p>
+      <p>You can ask the controller for access to your data, rectification, erasure and restriction of processing (Articles 15–18 of the Regulation) by writing to <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>. As the controller does not keep browsing data, requests concerning the provider's logs will be handled through Cloudflare.</p>
+      <p><strong>Right to object.</strong> You may object at any time, on grounds relating to your particular situation, to processing based on legitimate interests (Article 21 of the Regulation).</p>
+      <p>None of the processing on this website is based on consent, so there is no consent to withdraw.</p>
 
-      <h2>10. Editing area</h2>
-      <p>The <code>/admin/</code> area is used only by the controller to update opening hours and notices, with access through a GitHub account. It is not intended for visitors and collects no visitor data.</p>
+      <h2>10. Automated decision-making</h2>
+      <p>There is no automated decision-making, including profiling, referred to in Article 22(1) and (4) of the Regulation.</p>
 
-      <p class="aggiornamento">Last updated: 08/11/2026</p>
+      <h2>11. Complaints</h2>
+      <p>You have the right to lodge a complaint with a supervisory authority (Article 77 of the Regulation), in particular in the Member State of your habitual residence, place of work or place of the alleged infringement. In Italy, the supervisory authority is the <span lang="it">Garante per la protezione dei dati personali</span>; see <a href="https://www.garanteprivacy.it" rel="noopener noreferrer">garanteprivacy.it</a> for how to lodge a complaint.</p>
+
+      <h2>12. Children</h2>
+      <p>None of the processing on this website is based on consent, so the rules on children's consent (Article 8 of the Regulation and Article 2-quinquies of Italian Legislative Decree 196/2003) do not apply. The only data processed is browsing data, which is the same for every visitor. A parent or holder of parental responsibility can exercise the rights in section 9 on the child's behalf by writing to <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+
+      <h2>13. Changes to this notice and new purposes</h2>
+      <p>If this notice changes, the updated version is published on this page with a new date. Before using browsing data for a purpose other than those described here, the controller will state the new purpose, together with any other relevant information, on this page and through a notice on the website.</p>
+
+      <h2>14. Editing area</h2>
+      <p>The <code>/admin/</code> area is used only by the controller to update opening hours and notices, with access through a GitHub account. It is not intended for visitors and collects no visitor data. The panel stores some display preferences and the login session in the browser of the person using it (<code>localStorage</code>): they stay on that device and are used only for the panel to work.</p>
+
+      <h2>15. Contact</h2>
+      <p>For any question about this notice or your data: Giovanni Paolo Fusco, <a href="mailto:giovanni@giovannipaolofusco.it">giovanni@giovannipaolofusco.it</a>.</p>
+
+      <p class="aggiornamento">Last updated: 9 November 2026</p>
     </div>`,
 };
 
-const ID_PRIVACY = ['titolare', 'dati', 'finalita', 'destinatari', 'trasferimenti', 'conservazione', 'cookie', 'conferimento', 'diritti', 'redazione'];
+const ID_PRIVACY = ['titolare', 'dati', 'finalita', 'destinatari', 'trasferimenti', 'conservazione', 'cookie', 'conferimento', 'diritti', 'decisioni-automatizzate', 'reclamo', 'minori', 'modifiche', 'redazione', 'contatti'];
 
 export function privacy(lang) {
   const p = P('privacy', lang);
@@ -272,8 +306,7 @@ export function privacy(lang) {
     voci.push(`          <li><a href="#${id}">${titolo}</a></li>`);
     return `<h2 id="${id}">${titolo}</h2>`;
   });
-  const indice = `<nav class="indice-pagina" aria-labelledby="titolo-indice">
-        <h2 id="titolo-indice">${lang === 'it' ? 'Indice' : 'Contents'}</h2>
+  const indice = `<nav class="indice-pagina" aria-label="${lang === 'it' ? 'Indice della pagina' : 'Page contents'}">
         <details>
           <summary>${lang === 'it' ? 'Indice' : 'Contents'}</summary>
           <ol>
