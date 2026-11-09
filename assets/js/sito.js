@@ -6,12 +6,10 @@
     setTimeout(function () {
       if (!salto) { window.__ready = true; return; }
       window.scrollTo(0, Number(salto[1]));
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          window.scrollTo(0, Number(salto[1]));
-          window.__ready = true;
-        });
-      });
+      setTimeout(function () {
+        window.scrollTo(0, Number(salto[1]));
+        window.__ready = true;
+      }, 350);
     }, document.documentElement.classList.contains('apre') ? 1100 : 0);
   });
 
