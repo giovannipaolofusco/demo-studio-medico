@@ -3,7 +3,7 @@ import { TESTI, ORARI } from './dati.mjs';
 export const S = TESTI.sito;
 export const tel = (lang) => (lang === 'en' ? S.telefono_ld : S.telefono);
 export const DOM = S.dominio;
-// Una sola immagine per tutte le pagine e le lingue (CLAUDE.md §7.1): il sottotitolo non dipende dalla lingua.
+// Una sola immagine per tutte le pagine e le lingue: il sottotitolo non dipende dalla lingua.
 const OG = `${DOM}/assets/img/og-studio-medico-esempio.jpg`;
 // Chi riceve il link di una pagina interna in chat deve leggere che lo studio e' inventato.
 const condivisa = (lang, d) => (/dimostrativ|demo/i.test(d) ? d : `${d} ${TESTI.comune[lang].demo}.`);
