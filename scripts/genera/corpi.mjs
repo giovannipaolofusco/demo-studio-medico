@@ -38,7 +38,7 @@ function giorniCaselle(lang) {
     const righe = chiuso
       ? `<span>${esc(C(lang).chiuso)}</span>`
       : g.turni.map((t) => `<span>${t.apre.replace(/^0/, '')}–${t.chiude.replace(/^0/, '')}</span>`).join('');
-    return `      <li data-giorno="${NUMERO[g.giorno]}" class="rivela${chiuso ? ' giorni__chiuso' : ''}"><strong>${esc(g.nome[lang])}</strong>${righe}</li>`;
+    return `      <li data-giorno="${NUMERO[g.giorno]}"${chiuso ? ' class="giorni__chiuso"' : ''}><strong>${esc(g.nome[lang])}</strong>${righe}</li>`;
   }).join('\n');
 }
 

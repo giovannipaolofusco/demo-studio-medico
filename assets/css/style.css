@@ -52,6 +52,8 @@ a { color: inherit; }
 .testata__tel span { display: none; white-space: nowrap; }
 .testata__menu { display: none; min-width: 2.75rem; min-height: 2.75rem; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--linea); border-radius: .5rem; color: inherit; cursor: pointer; }
 .js .testata__menu { display: inline-flex; }
+.menu-senza-js .testata__voci[data-chiuso] { display: flex; }
+.menu-senza-js .testata__menu { display: none; }
 .testata__menu .ico--x { display: none; }
 .testata__menu[aria-expanded="true"] .ico--linee { display: none; }
 .testata__menu[aria-expanded="true"] .ico--x { display: block; }
@@ -145,12 +147,6 @@ a { color: inherit; }
   .rivela[data-fuori="sopra"] { opacity: 0; transform: translateY(calc(-1 * var(--rivela-spostamento))); }
   .scheda--n1 { transition-delay: 90ms; }
   .scheda--n2 { transition-delay: 180ms; }
-  .giorni .rivela:nth-child(2) { transition-delay: 60ms; }
-  .giorni .rivela:nth-child(3) { transition-delay: 120ms; }
-  .giorni .rivela:nth-child(4) { transition-delay: 180ms; }
-  .giorni .rivela:nth-child(5) { transition-delay: 240ms; }
-  .giorni .rivela:nth-child(6) { transition-delay: 300ms; }
-  .giorni .rivela:nth-child(7) { transition-delay: 360ms; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rivela, .rivela[data-fuori] { opacity: 1; transform: none; transition: none; }
@@ -257,7 +253,7 @@ a { color: inherit; }
 .specialita-riga h2 { transition: color .3s ease; }
 
 @media print {
-  .testata__menu, .js .testata__menu, .testata__voci, .testata__tel, .nota-demo, .vai, .ecg, .pulsante, .indice-pagina { display: none; }
+  .testata__menu, .js .testata__menu, .menu-senza-js .testata__menu, .testata__voci, .testata__tel, .nota-demo, .vai, .ecg, .pulsante, .indice-pagina { display: none; }
   body { display: block; min-height: 0; }
   .testata { position: static; box-shadow: none; }
   body, .fondo-pagina, .intro, .testa-pagina, .fascia-orari { background: #fff; color: #000; }

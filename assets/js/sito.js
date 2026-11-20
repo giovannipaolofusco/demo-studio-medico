@@ -28,6 +28,7 @@ var RIVELA_MARGINE_USCITA_PX = 200;
   var bottone = document.querySelector('.testata__menu');
   var voci = document.getElementById('voci');
   if (bottone && voci) {
+    document.documentElement.classList.add('menu-js');
     bottone.addEventListener('click', function () {
       var aperto = bottone.getAttribute('aria-expanded') === 'true';
       bottone.setAttribute('aria-expanded', String(!aperto));
