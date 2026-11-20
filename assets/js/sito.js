@@ -1,3 +1,6 @@
+var RIVELA_MARGINE_ENTRATA_PX = -10;
+var RIVELA_MARGINE_USCITA_PX = 200;
+
 (function () {
   var inglese = document.documentElement.lang === 'en';
 
@@ -25,6 +28,7 @@
   var bottone = document.querySelector('.testata__menu');
   var voci = document.getElementById('voci');
   if (bottone && voci) {
+    document.documentElement.classList.add('menu-js');
     bottone.addEventListener('click', function () {
       var aperto = bottone.getAttribute('aria-expanded') === 'true';
       bottone.setAttribute('aria-expanded', String(!aperto));
@@ -61,12 +65,16 @@
   }
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
-  var schede = document.querySelectorAll('.scheda');
+  var daRivelare = document.querySelectorAll('.rivela');
+  if (!daRivelare.length) { return; }
+  daRivelare.forEach(function (el) { el.dataset.fuori = 'si'; });
   var entrata = new IntersectionObserver(function (righe) {
-    righe.forEach(function (r) { if (r.isIntersecting) { r.target.classList.remove('scheda--fuori'); } });
-  }, { rootMargin: '0px 0px -12% 0px' });
+    righe.forEach(function (r) { if (r.isIntersecting) { r.target.dataset.fuori = 'no'; } });
+  }, { threshold: 0, rootMargin: RIVELA_MARGINE_ENTRATA_PX + 'px 0px' });
   var uscita = new IntersectionObserver(function (righe) {
-    righe.forEach(function (r) { if (!r.isIntersecting) { r.target.classList.add('scheda--fuori'); } });
-  }, { rootMargin: '0px 0px 20% 0px' });
-  schede.forEach(function (s) { entrata.observe(s); uscita.observe(s); });
+    righe.forEach(function (r) {
+      if (!r.isIntersecting) { r.target.dataset.fuori = r.boundingClientRect.bottom < 0 ? 'sopra' : 'si'; }
+    });
+  }, { threshold: 0, rootMargin: RIVELA_MARGINE_USCITA_PX + 'px 0px' });
+  daRivelare.forEach(function (el) { entrata.observe(el); uscita.observe(el); });
 })();
