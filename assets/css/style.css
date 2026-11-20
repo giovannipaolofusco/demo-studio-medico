@@ -2,7 +2,7 @@
 @font-face { font-family: "Public Sans"; src: url("/assets/fonts/public-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Public Sans"; src: url("/assets/fonts/public-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
 
-:root {
+:root { --rivela-spostamento: 18px;
   color-scheme: only light;
   --fondo: #f5f6f7;
   --carta: #fdfdfe;
@@ -138,11 +138,22 @@ a { color: inherit; }
   .apre .ecg__punto { animation: compare .2s ease-out .75s both; }
 
   .js .scheda__ico path, .js .scheda__ico circle { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .9s var(--morbido) .15s; }
-  .js .scheda--fuori .scheda__ico path, .js .scheda--fuori .scheda__ico circle { stroke-dashoffset: 1; transition: none; }
-  .js .scheda--fuori { opacity: 0; transform: translateY(18px); }
-  .js .scheda { transition: opacity .55s var(--morbido), transform .55s var(--morbido); }
-  .js .scheda--n1 { transition-delay: 90ms; }
-  .js .scheda--n2 { transition-delay: 180ms; }
+  .rivela[data-fuori="si"] .scheda__ico path, .rivela[data-fuori="si"] .scheda__ico circle,
+  .rivela[data-fuori="sopra"] .scheda__ico path, .rivela[data-fuori="sopra"] .scheda__ico circle { stroke-dashoffset: 1; transition: none; }
+  .rivela { transition: opacity .55s var(--morbido), transform .55s var(--morbido); }
+  .rivela[data-fuori="si"] { opacity: 0; transform: translateY(var(--rivela-spostamento)); }
+  .rivela[data-fuori="sopra"] { opacity: 0; transform: translateY(calc(-1 * var(--rivela-spostamento))); }
+  .scheda--n1 { transition-delay: 90ms; }
+  .scheda--n2 { transition-delay: 180ms; }
+  .giorni .rivela:nth-child(2) { transition-delay: 60ms; }
+  .giorni .rivela:nth-child(3) { transition-delay: 120ms; }
+  .giorni .rivela:nth-child(4) { transition-delay: 180ms; }
+  .giorni .rivela:nth-child(5) { transition-delay: 240ms; }
+  .giorni .rivela:nth-child(6) { transition-delay: 300ms; }
+  .giorni .rivela:nth-child(7) { transition-delay: 360ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rivela, .rivela[data-fuori] { opacity: 1; transform: none; transition: none; }
 }
 @keyframes sale { from { opacity: 0; transform: translateY(16px); } }
 @keyframes traccia { to { stroke-dashoffset: 0; } }
@@ -179,8 +190,12 @@ a { color: inherit; }
 .tabella-orari .giorni__etichetta { position: static; margin-left: .5rem; padding: .1rem .45rem; border-radius: .25rem; background: var(--accento); color: #fbf6fa; }
 
 .recapiti { display: grid; gap: 1rem; margin: 0; }
-.recapito { display: grid; grid-template-columns: 2.75rem 1fr; gap: .25rem 1rem; align-items: start; align-content: start; padding: 1.25rem; background: var(--carta); border: 1px solid var(--linea); border-radius: .5rem; }
-.recapito .ico { width: 1.5rem; height: 1.5rem; color: var(--accento); grid-row: span 2; margin: .2rem auto 0; }
+.recapito { display: grid; grid-template-columns: minmax(0, 1fr); gap: .25rem 1rem; align-items: start; align-content: start; padding: 1.25rem 1rem; background: var(--carta); border: 1px solid var(--linea); border-radius: .5rem; }
+.recapito .ico { width: 1.5rem; height: 1.5rem; color: var(--accento); margin: 0 0 .25rem; }
+@media (min-width: 24em) {
+  .recapito { grid-template-columns: 2.75rem minmax(0, 1fr); padding: 1.25rem; }
+  .recapito .ico { grid-row: span 2; margin: .2rem auto 0; }
+}
 .recapito dt { font-weight: 600; }
 .recapito dd { margin: 0; color: var(--tenue); }
 .recapito dd a { color: var(--accento); font-weight: 600; }
@@ -192,6 +207,7 @@ a { color: inherit; }
 
 .legale { max-width: 70ch; }
 .legale h2 { font-size: clamp(1.375rem, 2.6vw, 1.75rem); margin-top: 2rem; }
+.legale .riquadro h2 { margin-top: 0; }
 .legale h3 { font-size: 1.0625rem; margin-top: 1.5rem; }
 .legale table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
 .legale th, .legale td { text-align: left; padding: .6rem .5rem .6rem 0; border-bottom: 1px solid var(--linea); vertical-align: top; }
@@ -248,7 +264,7 @@ a { color: inherit; }
   .fondo-pagina, .fondo-pagina * { color: #000 !important; }
   .fondo-pagina { break-inside: avoid; border-top: 1px solid #000; }
   .intro::before, .testa-pagina::before { display: none; }
-  .js .scheda--fuori { opacity: 1; transform: none; }
+  .rivela, .rivela[data-fuori] { opacity: 1; transform: none; }
   .dichiarazione a[href]::after { content: " (" attr(href) ")"; }
 }
 #contenuto:focus { outline: none; }
